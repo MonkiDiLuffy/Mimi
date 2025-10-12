@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unimeal - Personal Quiz</title>
+    <link rel="stylesheet" href="quiz-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <img src="../assets/logo.png" alt="Unimeal Logo">
+        </div>
+        <div class="header-right">
+            <a href="#" class="help-link">
+                <span class="help-icon">?</span>
+                <span>Help</span>
+            </a>
+            <div class="language-selector">En ⌄</div>
+            <button class="menu-btn">☰</button>
+        </div>
+    </header>
+    <div class="page-container">
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-text">
+            <span id="currentStep">1</span> of <span id="totalSteps">9</span>
+        </div>
+    </div>
+
+    <!-- Quiz Container -->
+    <main class="quiz-container">
+        <!-- Step 1: Gender Selection -->
+        <div class="quiz-step active" data-step="1">
+            <div class="step-content">
+                <h1 class="main-title">WEIGHT-LOSS PLAN</h1>
+                <p class="main-subtitle">According to your age and goal</p>
+                <h2 class="step-title">Select your gender</h2>
+                
+                <div class="options-grid two-column gender-selection">
+                    <button class="option-card gender-card" data-value="female">
+                        <div class="gender-image">
+                            <img src="../assets/female.png" alt="Female">
+                        </div>
+                        <div class="gender-button">
+                            <span>Female</span>
+                            <span class="arrow">›</span>
+                        </div>
+                    </button>
+                    <button class="option-card gender-card" data-value="male">
+                        <div class="gender-image">
+                            <img src="../assets/male.png" alt="Male">
+                        </div>
+                        <div class="gender-button">
+                            <span>Male</span>
+                            <span class="arrow">›</span>
+                        </div>
+                    </button>
+                </div>
+
+                <div class="terms-text">
+                    By continuing you agree to our <a href="#" class="terms-link">Terms of Service</a> and acknowledge our <a href="#" class="terms-link">Privacy Policy</a> and <a href="#" class="terms-link">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Intermediate Welcome Page -->
+        <div class="quiz-step" data-step="2">
+            <div class="step-content intermediate-page">
+                <!-- <img src="./../assets/logo.png" alt="Unimeal Logo" class="intermediate-logo"> -->
+                <p class="intermediate-subtitle">Become one of more than</p>
+                <h2 class="intermediate-title">120 million<br>Unimeal users</h2>
+                
+                <div class="intermediate-image">
+                    <img src="../assets/social-FEMALE.webp" alt="Unimeal Users" id="intermediateImage">
+                </div>
+                
+                <button class="continue-btn" id="continueBtn">Continue</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Main Goal -->
+        <div class="quiz-step" data-step="3">
+            <div class="step-content">
+                <h2 class="step-title">What is your main goal?</h2>
+                
+                <div class="options-grid single-column">
+                    <button class="option-card horizontal" data-value="lose-weight">
+                        <div class="option-content">
+                            <span class="option-icon-small">📉</span>
+                            <div class="option-details">
+                                <span class="option-text">Lose weight</span>
+                            </div>
+                        </div>
+                    </button>
+                    
+                    <button class="option-card horizontal" data-value="gain-weight">
+                        <div class="option-content">
+                            <span class="option-icon-small">📈</span>
+                            <div class="option-details">
+                                <span class="option-text">Gain weight</span>
+                            </div>
+                        </div>
+                    </button>
+                    
+                    <button class="option-card horizontal" data-value="stay-fit">
+                        <div class="option-content">
+                            <span class="option-icon-small">💪</span>
+                            <div class="option-details">
+                                <span class="option-text">Stay fit and healthy</span>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Target Zones -->
+        <div class="quiz-step" data-step="4">
+            <div class="step-content">
+                <h2 class="step-title">Choose your target zones</h2>
+                
+                <div class="options-grid single-column">
+                    <button class="option-card horizontal selectable" data-value="arms">
+                        <div class="option-content">
+                            <span class="option-icon-small">💪</span>
+                            <div class="option-details">
+                                <span class="option-text">Arms</span>
+                            </div>
+                        </div>
+                        <div class="checkbox-indicator"></div>
+                    </button>
+                    
+                    <button class="option-card horizontal selectable" data-value="chest">
+                        <div class="option-content">
+                            <span class="option-icon-small">🏋️</span>
+                            <div class="option-details">
+                                <span class="option-text">Chest</span>
+                            </div>
+                        </div>
+                        <div class="checkbox-indicator"></div>
+                    </button>
+                    
+                    <button class="option-card horizontal selectable" data-value="abs">
+                        <div class="option-content">
+                            <span class="option-icon-small">🔥</span>
+                            <div class="option-details">
+                                <span class="option-text">Abs</span>
+                            </div>
+                        </div>
+                        <div class="checkbox-indicator"></div>
+                    </button>
+                    
+                    <button class="option-card horizontal selectable" data-value="legs">
+                        <div class="option-content">
+                            <span class="option-icon-small">🦵</span>
+                            <div class="option-details">
+                                <span class="option-text">Legs</span>
+                            </div>
+                        </div>
+                        <div class="checkbox-indicator"></div>
+                    </button>
+                    
+                    <button class="option-card horizontal selectable" data-value="whole-body">
+                        <div class="option-content">
+                            <span class="option-icon-small">🏃</span>
+                            <div class="option-details">
+                                <span class="option-text">Whole body</span>
+                            </div>
+                        </div>
+                        <div class="checkbox-indicator"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Intermediate Studies Page -->
+        <div class="quiz-step" data-step="5">
+            <div class="step-content intermediate-page">
+                <div class="intermediate-image">
+                    <img src="../assets/studies2.webp" alt="Healthy Food">
+                </div>
+                
+                <h2 class="intermediate-title">Studies prove: Proper Nutrition leads to significant weight loss</h2>
+                
+                <p class="intermediate-subtitle">Along with weight loss, health parameters associated with carrying excess weight have improved.</p>
+                
+                <div class="study-card">
+                    <img src="../assets/logo.png" alt="Harvard" class="study-logo">
+                    <div class="study-info">
+                        <p class="study-title">According to Harvard Research</p>
+                        <p class="study-details">35,000 adults aged 20 and older</p>
+                        <p class="study-date">Jan. 21, 2020, JAMA Network Open</p>
+                    </div>
+                </div>
+                
+                <button class="continue-btn" id="continueBtn2">Continue</button>
+            </div>
+        </div>
+
+        <!-- Step 6: Height Input -->
+        <div class="quiz-step" data-step="6">
+            <div class="step-content">
+                <h2 class="step-title">What is your height?</h2>
+                
+                <div class="measurement-toggle">
+                    <button class="toggle-btn" data-unit="ft" id="heightToggleFt">lb, ft</button>
+                    <button class="toggle-btn active" data-unit="cm" id="heightToggleCm">kg, cm</button>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">Height (cm)</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="height-input" id="heightInput" placeholder="0" min="0" max="300">
+                        <span class="input-suffix" id="heightUnit">cm</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <span class="info-icon">✋</span>
+                    <div class="info-content">
+                        <p class="info-title">Calculating your body mass index</p>
+                        <p class="info-text">BMI is widely used as a risk indicator for the development or prevalence of several health issues.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 7: Weight Input -->
+        <div class="quiz-step" data-step="7">
+            <div class="step-content">
+                <h2 class="step-title">What is your current weight?</h2>
+                
+                <div class="measurement-toggle">
+                    <button class="toggle-btn" data-unit="lbs" id="weightToggleLbs">lb, ft</button>
+                    <button class="toggle-btn active" data-unit="kg" id="weightToggleKg">kg, cm</button>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">Weight (kg)</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="weight-input" id="weightInput" placeholder="0" min="0" max="500">
+                        <span class="input-suffix" id="weightUnit">kg</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <span class="info-icon">✋</span>
+                    <div class="info-content">
+                        <p class="info-title">Calculating your body mass index</p>
+                        <p class="info-text">BMI is widely used as a risk indicator for the development or prevalence of several health issues.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 8: Desired Weight Input -->
+        <div class="quiz-step" data-step="8">
+            <div class="step-content">
+                <h2 class="step-title">What is your desired weight?</h2>
+                
+                <div class="measurement-toggle">
+                    <button class="toggle-btn" data-unit="lbs" id="targetWeightToggleLbs">lb, ft</button>
+                    <button class="toggle-btn active" data-unit="kg" id="targetWeightToggleKg">kg, cm</button>
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">Desired weight (kg)</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="target-weight-input" id="targetWeightInput" placeholder="0" min="0" max="500">
+                        <span class="input-suffix" id="targetWeightUnit">kg</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <span class="info-icon">🎯</span>
+                    <div class="info-content">
+                        <p class="info-title">Setting your weight goal</p>
+                        <p class="info-text">Your desired weight helps us create a personalized nutrition plan tailored to your goals.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Step 9: Age Input -->
+        <div class="quiz-step" data-step="9">
+            <div class="step-content">
+                <h2 class="step-title">What is your age?</h2>
+                
+                <div class="input-group">
+                    <label class="input-label">Age (years)</label>
+                    <div class="input-wrapper">
+                        <input type="number" class="age-input" id="ageInput" placeholder="0" min="1" max="120">
+                        <span class="input-suffix">years</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <span class="info-icon">📅</span>
+                    <div class="info-content">
+                        <p class="info-title">Age-appropriate nutrition</p>
+                        <p class="info-text">Your age helps us tailor your meal plan to your specific metabolic needs and health requirements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Navigation Buttons -->
+    <div class="quiz-navigation">
+        <button class="nav-btn back-btn" id="backBtn">
+            <span>← Back</span>
+        </button>
+        <button class="nav-btn next-btn" id="nextBtn">
+            <span id="nextBtnText">Next</span>
+        </button>
+    </div>
+    </div>
+
+    <!-- Sidebar Menu (same as landing page) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <nav class="sidebar-menu" id="sidebarMenu">
+        <button class="sidebar-close" id="sidebarClose">✕</button>
+        
+        <div class="sidebar-content">
+            <div class="menu-item dropdown">
+                <button class="menu-link">
+                    <span>My Account</span>
+                    <span class="dropdown-icon">⌄</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-link">Profile</a>
+                    <a href="#" class="dropdown-link">Settings</a>
+                    <a href="#" class="dropdown-link">Logout</a>
+                </div>
+            </div>
+
+            <div class="menu-item">
+                <a href="#" class="menu-link">Blog</a>
+            </div>
+
+            <div class="menu-item">
+                <a href="#" class="menu-link">About Us</a>
+            </div>
+
+            <div class="menu-item">
+                <a href="#" class="menu-link">Contact Us</a>
+            </div>
+
+            <div class="menu-item dropdown">
+                <button class="menu-link">
+                    <span>Support</span>
+                    <span class="dropdown-icon">⌄</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-link">Help Center</a>
+                    <a href="#" class="dropdown-link">FAQ</a>
+                    <a href="#" class="dropdown-link">Contact Support</a>
+                </div>
+            </div>
+
+            <div class="menu-item dropdown">
+                <button class="menu-link">
+                    <span>Terms & Policies</span>
+                    <span class="dropdown-icon">⌄</span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#" class="dropdown-link">Terms of Service</a>
+                    <a href="#" class="dropdown-link">Privacy Policy</a>
+                    <a href="#" class="dropdown-link">Cookie Policy</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script src="quiz-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1055 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #F8F9FA;
+    color: #333;
+    overflow-x: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main Content Container */
+.page-container {
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #FFFFFF;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styles (from landing page) */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #333;
+}
+
+.logo img {
+    width: auto;
+    height: 30px;
+    border-radius: 8px;
+}
+
+.header-right {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+.help-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+}
+
+.help-icon {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.language-selector {
+    color: #333;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.menu-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Progress Bar */
+.progress-container {
+    background-color: white;
+    padding: 1.5rem 2rem;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background-color: #E0E0E0;
+    border-radius: 20px;
+    overflow: hidden;
+    margin-bottom: 0.75rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4A9B8E 0%, #B8A8D8 100%);
+    border-radius: 20px;
+    transition: width 0.4s ease;
+    width: 12.5%;
+}
+
+.progress-text {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #666;
+    font-weight: 500;
+}
+
+/* Quiz Container */
+.quiz-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 2rem 3rem;
+    max-width: 750px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.quiz-step {
+    display: none;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.quiz-step.active {
+    display: block;
+    animation: fadeIn 0.2s ease-in-out forwards;
+}
+
+.quiz-step.fade-out {
+    animation: fadeOut 0.2s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+.step-content {
+    text-align: center;
+}
+
+.main-title {
+    font-size: 2.25rem;
+    font-weight: 800;
+    color: #2D2D2D;
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+}
+
+.main-subtitle {
+    font-size: 0.95rem;
+    color: #666;
+    margin-bottom: 1.5rem;
+    font-weight: 400;
+}
+
+.step-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #2D2D2D;
+    margin-bottom: 1.25rem;
+    line-height: 1.2;
+}
+
+.step-subtitle {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+/* Options Grid */
+.options-grid {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0 auto;
+}
+
+.options-grid.two-column {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
+}
+
+.options-grid.three-column {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 700px;
+}
+
+.options-grid.single-column {
+    grid-template-columns: 1fr;
+    max-width: 450px;
+}
+
+.option-card {
+    background-color: #F5F5F5;
+    border: none;
+    border-radius: 12px;
+    padding: 0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.option-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.option-card.selected {
+    background-color: #E8F5F3;
+}
+
+/* Gender Selection Specific Styles */
+.gender-selection {
+    max-width: 550px;
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.gender-card {
+    background-color: #F5F5F5;
+    padding: 0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.gender-image {
+    width: 100%;
+    height: 240px;
+    overflow: hidden;
+    background-color: #F0F0F0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+.gender-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+}
+
+.gender-button {
+    width: 100%;
+    background: linear-gradient(135deg, #4A9B8E 0%, #5BABA0 100%);
+    color: white;
+    padding: 0.875rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.gender-button .arrow {
+    font-size: 1.5rem;
+    font-weight: 300;
+}
+
+.gender-card:hover .gender-button {
+    background: linear-gradient(135deg, #3D8A7E 0%, #4A9B8E 100%);
+}
+
+/* Terms Text */
+.terms-text {
+    font-size: 0.8rem;
+    color: #666;
+    line-height: 1.5;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.terms-link {
+    color: #4A9B8E;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.terms-link:hover {
+    text-decoration: underline;
+}
+
+/* Intermediate Page Styles */
+.intermediate-page {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+.intermediate-subtitle {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 0.5rem;
+    font-weight: 400;
+}
+
+.intermediate-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #2D2D2D;
+    margin-bottom: 2.5rem;
+    line-height: 1.3;
+}
+
+.intermediate-image {
+    width: 100%;
+    max-width: 450px;
+    margin-bottom: 3rem;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.intermediate-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 16px;
+}
+
+.study-card {
+    background-color: #E8E8E8;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    max-width: 450px;
+    width: 100%;
+}
+
+.study-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.study-info {
+    flex: 1;
+    text-align: left;
+}
+
+.study-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2D2D2D;
+    margin-bottom: 0.25rem;
+}
+
+.study-details {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.125rem;
+}
+
+.study-date {
+    font-size: 0.75rem;
+    color: #999;
+}
+
+.continue-btn {
+    width: 100%;
+    max-width: 450px;
+    padding: 1.1rem 2rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #4A9B8E 0%, #5BABA0 100%);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.continue-btn:hover {
+    background: linear-gradient(135deg, #3D8A7E 0%, #4A9B8E 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(74, 155, 142, 0.3);
+}
+
+.option-icon {
+    font-size: 3rem;
+}
+
+.option-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2D2D2D;
+}
+
+/* Horizontal Cards */
+.option-card.horizontal {
+    padding: 1rem 1.25rem;
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.option-card.horizontal.selected {
+    border-color: #4A9B8E;
+    background-color: #E8F5F3;
+}
+
+.option-card.horizontal::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #CCC;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.option-card.horizontal.selected::after {
+    content: '✓';
+    background-color: #4A9B8E;
+    border-color: #4A9B8E;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 0.85rem;
+    line-height: 1;
+}
+
+.option-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    padding-right: 1.75rem;
+}
+
+.option-icon-small {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.option-details {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    gap: 0.25rem;
+}
+
+.option-details .option-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.option-description {
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 400;
+}
+
+/* Small Cards (for allergies) */
+.option-card.small {
+    padding: 1.25rem 1rem;
+    gap: 0.5rem;
+}
+
+.option-card.small .option-text {
+    font-size: 1rem;
+}
+
+/* Selectable Cards (multi-select) */
+.option-card.selectable {
+    position: relative;
+    border: 2px solid transparent;
+}
+
+.option-card.selectable.selected {
+    border-color: #4A9B8E;
+    background-color: #E8F5F3;
+}
+
+.checkbox-indicator {
+    position: absolute;
+    top: 50%;
+    right: 1.25rem;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #CCC;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.option-card.selectable.selected .checkbox-indicator {
+    background-color: #4A9B8E;
+    border-color: #4A9B8E;
+}
+
+.option-card.selectable.selected .checkbox-indicator::after {
+    content: '✓';
+    color: white;
+    font-size: 0.85rem;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.option-card.selectable .option-content {
+    padding-right: 1.75rem;
+}
+
+/* Input Fields */
+.input-group {
+    max-width: 400px;
+    margin: 0 auto 2rem;
+}
+
+.input-label {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 0.5rem;
+    text-align: left;
+}
+
+.input-wrapper {
+    max-width: 400px;
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: #F5F5F5;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.input-wrapper:focus-within {
+    background-color: #E8F5F3;
+}
+
+.age-input,
+.weight-input,
+.target-weight-input,
+.height-input {
+    flex: 1;
+    border: none;
+    outline: none;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #2D2D2D;
+    background: transparent;
+}
+
+.age-input::placeholder,
+.weight-input::placeholder,
+.target-weight-input::placeholder,
+.height-input::placeholder {
+    color: #CCC;
+}
+
+.input-suffix {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #666;
+    margin-left: 0.5rem;
+}
+
+/* Info Card */
+.info-card {
+    background-color: #EFF5F9;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    max-width: 450px;
+    margin: 0 auto;
+}
+
+.info-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    line-height: 1;
+}
+
+.info-content {
+    flex: 1;
+    text-align: left;
+}
+
+.info-title {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #2D2D2D;
+    margin-bottom: 0.25rem;
+}
+
+.info-text {
+    font-size: 0.85rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* Remove number input arrows */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Measurement Toggle */
+.measurement-toggle {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 2rem;
+    background-color: white;
+    padding: 0.5rem;
+    border-radius: 12px;
+    max-width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.toggle-btn {
+    flex: 1;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    background-color: transparent;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.toggle-btn.active {
+    background-color: #4A9B8E;
+    color: white;
+}
+
+/* Navigation Buttons */
+.quiz-navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 2rem;
+    gap: 1rem;
+    background-color: #FFFFFF;
+}
+
+.nav-btn {
+    padding: 1rem 3rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-btn {
+    background-color: #F5F5F5;
+    color: #2D2D2D;
+    border: 1px solid #E0E0E0;
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.back-btn.visible {
+    visibility: visible;
+}
+
+.back-btn:hover {
+    background-color: #EBEBEB;
+    border-color: #D0D0D0;
+    transform: translateX(-2px);
+}
+
+.next-btn {
+    background-color: #4A9B8E;
+    color: white;
+    margin-left: auto;
+    min-width: 150px;
+}
+
+.next-btn:hover {
+    background-color: #3d8a7d;
+    transform: translateY(-2px);
+}
+
+.next-btn:disabled {
+    background-color: #CCC;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Sidebar Menu Styles (from landing page) */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    z-index: 999;
+}
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 400px;
+    max-width: 85vw;
+    height: 100vh;
+    background-color: #e2e2e2;
+    transition: right 0.3s ease;
+    z-index: 1000;
+    overflow-y: auto;
+}
+
+.sidebar-menu.active {
+    right: 0;
+}
+
+.sidebar-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: none;
+    border: none;
+    color: black;
+    font-size: 1.8rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    line-height: 1;
+    transition: color 0.2s ease;
+}
+
+.sidebar-close:hover {
+    color: #ccc;
+}
+
+.sidebar-content {
+    padding: 5rem 0 2rem 0;
+}
+
+.menu-link {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1rem 2rem;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 1.7rem;
+    font-weight: 900;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.menu-link:hover {
+    background-color: #ffffff;
+}
+
+.dropdown-icon {
+    font-size: 1.2rem;
+    transition: transform 0.3s ease;
+}
+
+.menu-item.open .dropdown-icon {
+    transform: rotate(180deg);
+}
+
+.dropdown-content {
+    max-height: 0;
+    overflow: hidden;
+    background-color: #f9f9f9;
+    transition: max-height 0.3s ease;
+}
+
+.menu-item.open .dropdown-content {
+    max-height: 300px;
+}
+
+.dropdown-link {
+    display: block;
+    padding: 1rem 2rem 1rem 3rem;
+    color: #333;
+    text-decoration: none;
+    font-size: 1rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-link:hover {
+    background-color: #4D4D4D;
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    header {
+        padding: 1rem 1.5rem;
+    }
+
+    .progress-container {
+        padding: 1rem 1.5rem;
+    }
+
+    .quiz-container {
+        padding: 1.5rem 1rem 3rem;
+    }
+
+    .main-title {
+        font-size: 2rem;
+    }
+
+    .main-subtitle {
+        font-size: 0.95rem;
+    }
+
+    .step-title {
+        font-size: 1.25rem;
+    }
+
+    .gender-image {
+        height: 220px;
+    }
+
+    .gender-button {
+        padding: 0.875rem 1.25rem;
+        font-size: 1rem;
+    }
+
+    .options-grid.two-column {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .gender-selection {
+        gap: 1rem;
+    }
+
+    .terms-text {
+        font-size: 0.8rem;
+    }
+
+    .intermediate-title {
+        font-size: 1.6rem;
+    }
+
+    .intermediate-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .intermediate-image {
+        max-width: 350px;
+        margin-bottom: 2rem;
+    }
+
+    .continue-btn {
+        max-width: 350px;
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .step-subtitle {
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .options-grid.two-column,
+    .options-grid.three-column {
+        grid-template-columns: 1fr;
+    }
+
+    .option-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .option-text {
+        font-size: 1rem;
+    }
+
+    .option-icon {
+        font-size: 2.5rem;
+    }
+
+    .quiz-navigation {
+        padding: 1.5rem 1.5rem;
+        flex-direction: column-reverse;
+    }
+
+    .nav-btn {
+        width: 100%;
+        padding: 1rem 2rem;
+    }
+
+    .next-btn {
+        margin-left: 0;
+    }
+
+    .back-btn.visible {
+        visibility: visible;
+    }
+
+    .input-wrapper {
+        padding: 1rem;
+    }
+
+    .age-input,
+    .weight-input,
+    .target-weight-input,
+    .height-input {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-title {
+        font-size: 1.5rem;
+    }
+
+    .main-subtitle {
+        font-size: 0.875rem;
+    }
+
+    .step-title {
+        font-size: 1.1rem;
+    }
+
+    .step-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .gender-image {
+        height: 200px;
+    }
+
+    .gender-button {
+        padding: 0.75rem 1rem;
+        font-size: 0.95rem;
+    }
+
+    .option-card {
+        padding: 1.25rem 1rem;
+    }
+
+    .option-icon {
+        font-size: 2rem;
+    }
+
+    .option-text {
+        font-size: 0.95rem;
+    }
+
+    .option-icon-small {
+        font-size: 1.5rem;
+    }
+
+    .option-details .option-text {
+        font-size: 1rem;
+    }
+
+    .option-description {
+        font-size: 0.85rem;
+    }
+
+    .terms-text {
+        font-size: 0.75rem;
+    }
+
+    .intermediate-title {
+        font-size: 1.4rem;
+    }
+
+    .intermediate-subtitle {
+        font-size: 0.85rem;
+    }
+
+    .intermediate-image {
+        max-width: 300px;
+        margin-bottom: 1.5rem;
+    }
+
+    .continue-btn {
+        max-width: 300px;
+        padding: 0.9rem 1.25rem;
+        font-size: 0.95rem;
+    }
+}
