@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unimeal - Personal Quiz</title>
+    <link rel="stylesheet" href="quiz-styles.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <a href="/" class="logo">
+                <img src="../assets/logo.png" alt="Unimeal" width="153" height="40">
+            </a>
+            <div class="header-spacer"></div>
+            <a href="#" class="help-link" title="Need some help?">
+                <svg viewBox="0 0 24 24" width="20" height="20">
+                    <circle cx="12" cy="12" r="10" stroke="currentColor" fill="none" stroke-width="2"/>
+                    <path fill="currentColor" d="M12 6c-1.1 0-2 .9-2 2h2c0-.55.45-1 1-1s1 .45 1 1c0 1-1.5 1.25-1.5 2.5V12h2v-.5c0-.55 1.5-1 1.5-2.5 0-1.66-1.34-3-3-3zm-1 9v2h2v-2h-2z"/>
+                </svg>
+                <span>Help</span>
+            </a>
+            <div class="lang-menu">
+                <button class="lang-btn">
+                    <span>En</span>
+                    <svg viewBox="0 0 24 24" width="16" height="16">
+                        <path fill="currentColor" d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </button>
+            </div>
+            <button class="nav-menu-btn">
+                <svg viewBox="0 0 24 24" width="24" height="24">
+                    <path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                </svg>
+            </button>
+        </div>
+    </header>
+
+    <div class="page-container">
+        <!-- Progress Bar -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill"></div>
+            </div>
+            <div class="progress-text">
+                <span id="currentStep">1</span> of <span id="totalSteps">5</span>
+            </div>
+        </div>
+
+        <!-- Quiz Container -->
+        <main class="quiz-container">
+            <!-- Step 1 -->
+            <div class="quiz-step active" data-step="1">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h1 class="main-title">KETO MEAL PLAN</h1>
+                        <p class="subtitle">According to your goal and gender</p>
+                        <p class="question-text">Select your gender:</p>
+                    </div>
+                    
+                    <div class="gender-selection">
+                        <div class="gender-options">
+                            <label class="gender-option" data-value="female">
+                                <div class="gender-image">
+                                    <img src="../assets/female.png" alt="Female" />
+                                </div>
+                                <button type="button" class="gender-btn">
+                                    <span>Female</span>
+                                    <svg viewBox="0 0 24 24" width="16" height="16">
+                                        <path fill="currentColor" d="M9 16l-4-4 1.4-1.4L9 13.2l7.6-7.6L18 7l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </label>
+                            
+                            <label class="gender-option" data-value="male">
+                                <div class="gender-image">
+                                    <img src="../assets/male.png" alt="Male" />
+                                </div>
+                                <button type="button" class="gender-btn">
+                                    <span>Male</span>
+                                    <svg viewBox="0 0 24 24" width="16" height="16">
+                                        <path fill="currentColor" d="M9 16l-4-4 1.4-1.4L9 13.2l7.6-7.6L18 7l-9 9z"/>
+                                    </svg>
+                                </button>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="terms-text">
+                        <p>By continuing you agree to our <a href="#" class="terms-link">Terms of Service</a> and acknowledge our <a href="#" class="terms-link">Privacy Policy</a> and <a href="#" class="terms-link">Cookie Policy</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div class="quiz-step" data-step="2">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">What is your primary goal?</h2>
+                    </div>
+                    
+                    <div class="goal-selection">
+                        <div class="goal-options">
+                            <label class="goal-option" data-value="lose-weight">
+                                <div class="goal-content">
+                                    <span class="goal-text">Lose weight</span>
+                                    <div class="goal-emoji">👌</div>
+                                </div>
+                            </label>
+                            
+                            <label class="goal-option selected" data-value="get-fitter">
+                                <div class="goal-content">
+                                    <span class="goal-text">Get fitter</span>
+                                    <div class="goal-emoji">🤟</div>
+                                </div>
+                            </label>
+                            
+                            <label class="goal-option" data-value="improve-heart">
+                                <div class="goal-content">
+                                    <span class="goal-text">Improve heart health</span>
+                                    <div class="goal-emoji">❤️</div>
+                                </div>
+                            </label>
+                            
+                            <label class="goal-option" data-value="relieve-stress">
+                                <div class="goal-content">
+                                    <span class="goal-text">Relieve stress</span>
+                                    <div class="goal-emoji">🙋‍♂️</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="quiz-step" data-step="3">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">How would you describe your physical build?</h2>
+                    </div>
+                    
+                    <div class="build-selection">
+                        <div class="build-options">
+                            <label class="build-option" data-value="slender">
+                                <div class="build-content">
+                                    <span class="build-text">Slender</span>
+                                    <div class="build-image">
+                                        <img src="../assets/slim.webp" alt="Slender build" />
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="build-option" data-value="medium">
+                                <div class="build-content">
+                                    <span class="build-text">Medium build</span>
+                                    <div class="build-image">
+                                        <img src="../assets/athletic.webp" alt="Medium build" />
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="build-option selected" data-value="stocky">
+                                <div class="build-content">
+                                    <span class="build-text">Stocky</span>
+                                    <div class="build-image">
+                                        <img src="../assets/belly.webp" alt="Stocky build" />
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="build-option" data-value="obese">
+                                <div class="build-content">
+                                    <span class="build-text">Obese</span>
+                                    <div class="build-image">
+                                        <img src="../assets/overweight.webp" alt="Obese build" />
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4 -->
+            <div class="quiz-step" data-step="4">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">What is your "dream body"?</h2>
+                    </div>
+                    
+                    <div class="dream-body-selection">
+                        <div class="dream-body-options">
+                            <label class="dream-body-option" data-value="few-sizes-smaller">
+                                <div class="dream-body-content">
+                                    <span class="dream-body-text">A few sizes smaller</span>
+                                    <div class="dream-body-image">
+                                        <img src="../assets/slim.webp" alt="A few sizes smaller" />
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="dream-body-option" data-value="athletic">
+                                <div class="dream-body-content">
+                                    <span class="dream-body-text">Athletic</span>
+                                    <div class="dream-body-image">
+                                        <img src="../assets/athletic.webp" alt="Athletic body" />
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="dream-body-option selected" data-value="shredded">
+                                <div class="dream-body-content">
+                                    <span class="dream-body-text">Shredded</span>
+                                    <div class="dream-body-image">
+                                        <img src="../assets/shredded.webp" alt="Shredded body" />
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="dream-body-option" data-value="swole">
+                                <div class="dream-body-content">
+                                    <span class="dream-body-text">Swole</span>
+                                    <div class="dream-body-image">
+                                        <img src="../assets/swole.webp" alt="Swole body" />
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5 -->
+            <div class="quiz-step" data-step="5">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">What are your target zones?</h2>
+                    </div>
+                    
+                    <div class="target-zones-selection">
+                        <div class="target-zones-options">
+                            <label class="target-zone-option" data-value="arms">
+                                <div class="target-zone-content">
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" class="target-zone-checkbox">
+                                        <div class="custom-checkbox"></div>
+                                        <span class="target-zone-text">Arms</span>
+                                    </div>
+                                    <div class="target-zone-image">
+                                        <img src="../assets/arms.webp" alt="Arms target zone" />
+                                        <div class="target-indicator"></div>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="target-zone-option" data-value="pecs">
+                                <div class="target-zone-content">
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" class="target-zone-checkbox">
+                                        <div class="custom-checkbox"></div>
+                                        <span class="target-zone-text">Pecs</span>
+                                    </div>
+                                    <div class="target-zone-image">
+                                        <img src="../assets/pecs.webp" alt="Pecs target zone" />
+                                        <div class="target-indicator"></div>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="target-zone-option" data-value="belly">
+                                <div class="target-zone-content">
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" class="target-zone-checkbox">
+                                        <div class="custom-checkbox"></div>
+                                        <span class="target-zone-text">Belly</span>
+                                    </div>
+                                    <div class="target-zone-image">
+                                        <img src="../assets/belly.webp" alt="Belly target zone" />
+                                        <div class="target-indicator"></div>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="target-zone-option" data-value="legs">
+                                <div class="target-zone-content">
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" class="target-zone-checkbox">
+                                        <div class="custom-checkbox"></div>
+                                        <span class="target-zone-text">Legs</span>
+                                    </div>
+                                    <div class="target-zone-image">
+                                        <img src="../assets/legs.webp" alt="Legs target zone" />
+                                        <div class="target-indicator"></div>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="target-zone-option" data-value="back">
+                                <div class="target-zone-content">
+                                    <div class="checkbox-container">
+                                        <input type="checkbox" class="target-zone-checkbox">
+                                        <div class="custom-checkbox"></div>
+                                        <span class="target-zone-text">Back</span>
+                                    </div>
+                                    <div class="target-zone-image">
+                                        <img src="../assets/back.webp" alt="Back target zone" />
+                                        <div class="target-indicator"></div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 6 -->
+            <div class="quiz-step" data-step="6">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">How long ago were you in the best shape of your life?</h2>
+                    </div>
+                    
+                    <div class="best-shape-selection">
+                        <div class="best-shape-layout">
+                            <div class="best-shape-image">
+                                <img src="../assets/athletic.webp" alt="Best shape illustration" />
+                            </div>
+                            
+                            <div class="best-shape-options">
+                                <label class="time-period-option" data-value="0-6-months">
+                                    <div class="time-period-content">
+                                        <span class="time-period-text">0 - 6 months ago</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="time-period-option" data-value="7-12-months">
+                                    <div class="time-period-content">
+                                        <span class="time-period-text">7 - 12 months ago</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="time-period-option" data-value="1-3-years">
+                                    <div class="time-period-content">
+                                        <span class="time-period-text">1 - 3 years ago</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="time-period-option" data-value="more-than-3-years">
+                                    <div class="time-period-content">
+                                        <span class="time-period-text">More than 3 years ago</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Navigation Buttons -->
+        <div class="quiz-navigation">
+            <button class="nav-btn back-btn" id="backBtn">
+                <span>← Back</span>
+            </button>
+            <button class="nav-btn next-btn" id="nextBtn">
+                <span id="nextBtnText">Next</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Sidebar Menu -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    <nav class="sidebar-menu" id="sidebarMenu">
+        <button class="sidebar-close" id="sidebarClose">✕</button>
+        
+        <div class="sidebar-content">
+            <div class="menu-item">
+                <a href="#" class="menu-link">My Account</a>
+            </div>
+
+            <div class="menu-item">
+                <a href="#" class="menu-link">Blog</a>
+            </div>
+
+            <div class="menu-item">
+                <a href="#" class="menu-link">About Us</a>
+            </div>
+
+            <div class="menu-item">
+                <a href="#" class="menu-link">Contact Us</a>
+            </div>
+
+            <div class="menu-item">
+                <a href="#" class="menu-link">Support</a>
+            </div>
+
+            <div class="menu-item">
+                <a href="#" class="menu-link">Terms & Policies</a>
+            </div>
+        </div>
+    </nav>
+
+    <script src="quiz-script.js"></script>
+</body>
+</html>
