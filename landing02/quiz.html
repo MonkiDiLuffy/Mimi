@@ -1821,6 +1821,121 @@
                     <button class="event-date-skip-btn" id="eventDateSkipBtn">Skip this step</button>
                 </div>
             </div>
+
+            <!-- Step 28: Weight Loss Chart -->
+            <div class="quiz-step" data-step="28" style="display: none;">
+                <div class="chart-selection">
+                    <h2>The last plan you'll ever need to finally get in shape</h2>
+                    <p class="chart-subtitle" id="chartSubtitle">Based on our calculations, you'll hit your goal weight by</p>
+                    <p class="goal-date" id="goalDate">Feb 11, 2026</p>
+                    
+                    <div class="chart-container">
+                        <canvas id="weightChart"></canvas>
+                    </div>
+                    
+                    <button class="chart-continue-btn" id="chartContinueBtn">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 28.5: Progress Circle (Intermediate Page) -->
+            <div class="quiz-step intermediate-page" data-step="28.5" style="display: none;">
+                <div class="progress-circle-container">
+                    <div class="progress-circle-wrapper">
+                        <svg class="progress-ring" width="200" height="200">
+                            <circle class="progress-ring-circle-bg" 
+                                stroke="#e0e0e0" 
+                                stroke-width="12" 
+                                fill="transparent" 
+                                r="88" 
+                                cx="100" 
+                                cy="100"/>
+                            <circle class="progress-ring-circle" 
+                                stroke="#00857A" 
+                                stroke-width="12" 
+                                fill="transparent" 
+                                r="88" 
+                                cx="100" 
+                                cy="100"
+                                stroke-dasharray="552.92 552.92"
+                                stroke-dashoffset="552.92"
+                                transform="rotate(-90 100 100)"/>
+                        </svg>
+                        <div class="progress-percentage" id="progressPercentage">0%</div>
+                    </div>
+                    
+                    <h2 class="progress-title">120+ million users</h2>
+                    <p class="progress-subtitle">have chosen our app</p>
+                    
+                    <div class="testimonials-container">
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/p1.png" alt="Katie Barr" class="testimonial-avatar">
+                                <div class="testimonial-info">
+                                    <h3 class="testimonial-name">Katie Barr</h3>
+                                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">The meals are lovely and similar to what I normally buy, and the recipes are easy to follow. I've lost 6 kg in less than a week. I'll admit, I was skeptical at first, but this is by far the most effective and best-priced meal plan.</p>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/p2.png" alt="Marcus Hart" class="testimonial-avatar">
+                                <div class="testimonial-info">
+                                    <h3 class="testimonial-name">Marcus Hart</h3>
+                                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">Helping me with my day-to-day meal planning. It is user-friendly and easy to read. Nothing extra fancy and direct. The exercises are practical and you feel the results. I love it.</p>
+                        </div>
+                        
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <img src="../assets/p3.png" alt="Prettypink Elois" class="testimonial-avatar">
+                                <div class="testimonial-info">
+                                    <h3 class="testimonial-name">Prettypink Elois</h3>
+                                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                                </div>
+                            </div>
+                            <p class="testimonial-text">I love this App, it keeps me motivated, keeps me on track, this app makes me on top of my schedule. These exercises on this app are amazing 👍 🙌 😍 I also love the yummy meals plan 😊 #Loveit!!!</p>
+                        </div>
+                    </div>
+                    
+                    <p class="progress-footer">*AppMagic, AllTime, Android % iOS</p>
+                </div>
+            </div>
+
+            <!-- Step 29: Email Collection (Final Step) -->
+            <div class="quiz-step" data-step="29" style="display: none;">
+                <div class="email-selection">
+                    <h2>Enter your email to get your personalized Keto Program</h2>
+                    
+                    <div class="email-input-wrapper">
+                        <label for="emailInput" class="email-label">Your email</label>
+                        <input 
+                            type="email" 
+                            id="emailInput" 
+                            class="email-input" 
+                            placeholder="Email"
+                            required
+                        >
+                    </div>
+                    
+                    <div class="email-consent">
+                        <input type="checkbox" id="emailUpdatesCheckbox" class="consent-checkbox">
+                        <label for="emailUpdatesCheckbox" class="consent-label">
+                            I would like to receive updates about products, services, and special offers from Unimeal via email
+                        </label>
+                    </div>
+                    
+                    <div class="email-privacy">
+                        <span class="privacy-icon-small">🔒</span>
+                        <p class="privacy-text-small">We respect your privacy and use your email only to send you the Unimeal program and other important emails. You won't receive spam. We recommend you to consult your physician before starting to follow any weight loss program</p>
+                    </div>
+                    
+                    <button class="email-submit-btn" id="emailSubmitBtn" disabled>Get my Keto Program</button>
+                </div>
+            </div>
         </main>
 
         <!-- Navigation Buttons (shown only for multi-select steps) -->
@@ -1863,6 +1978,8 @@
         </div>
     </nav>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <script src="quiz-script.js"></script>
 </body>
 </html>
+

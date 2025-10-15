@@ -4382,3 +4382,463 @@ body {
     }
 }
 
+/* =========================
+   Step 28: Weight Loss Chart Styles
+   ========================= */
+
+.chart-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.chart-selection h2 {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--color-text);
+    text-align: center;
+    margin: 0;
+    line-height: 1.3;
+}
+
+.chart-subtitle {
+    font-size: 16px;
+    font-weight: 400;
+    color: #666;
+    text-align: center;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.goal-date {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--color-text);
+    text-align: center;
+    margin: 0;
+    padding: 8px 20px;
+    background: #FFF4D6;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 0 auto;
+}
+
+.chart-container {
+    width: 100%;
+    height: 400px;
+    padding: 20px;
+    background: var(--color-white);
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: relative;
+}
+
+.chart-container canvas {
+    max-height: 100%;
+}
+
+.chart-continue-btn {
+    background: var(--color-primary);
+    color: var(--color-white);
+    border: none;
+    padding: 16px 24px;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.chart-continue-btn:hover {
+    background: #006D63;
+    box-shadow: 0 4px 12px rgba(0, 133, 122, 0.25);
+}
+
+.chart-continue-btn:active {
+    transform: translateY(2px);
+}
+
+/* Step 28 Mobile Styles */
+@media (max-width: 768px) {
+    .chart-container {
+        height: 350px;
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-selection {
+        gap: 16px;
+    }
+    
+    .chart-selection h2 {
+        font-size: 22px;
+    }
+    
+    .chart-subtitle {
+        font-size: 15px;
+    }
+    
+    .goal-date {
+        font-size: 20px;
+        padding: 6px 16px;
+    }
+    
+    .chart-container {
+        height: 300px;
+        padding: 10px;
+    }
+    
+    .chart-continue-btn {
+        font-size: 16px;
+        padding: 14px 20px;
+    }
+}
+
+/* Step 28.5: Progress Circle and Testimonials */
+.progress-circle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 60px 20px 40px;
+}
+
+.progress-circle-wrapper {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-bottom: 30px;
+}
+
+.progress-ring {
+    width: 200px;
+    height: 200px;
+}
+
+.progress-ring-circle {
+    transition: stroke-dashoffset 0.05s linear;
+    stroke-linecap: round;
+}
+
+.progress-percentage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    font-weight: 700;
+    color: #00857A;
+}
+
+.progress-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.progress-subtitle {
+    font-size: 18px;
+    color: #666;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.testimonials-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.testimonial-card {
+    background: #f9f9f9;
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.testimonial-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.testimonial-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.testimonial-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.testimonial-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.testimonial-stars {
+    font-size: 14px;
+    color: #FFB800;
+}
+
+.testimonial-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+    margin: 0;
+}
+
+.progress-footer {
+    font-size: 12px;
+    color: #999;
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Responsive - Tablet */
+@media (max-width: 768px) {
+    .testimonials-container {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .progress-title {
+        font-size: 28px;
+    }
+    
+    .progress-subtitle {
+        font-size: 16px;
+    }
+    
+    .progress-circle-container {
+        padding: 40px 20px 30px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 480px) {
+    .progress-circle-wrapper {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .progress-ring {
+        width: 160px;
+        height: 160px;
+    }
+    
+    .progress-ring-circle,
+    .progress-ring-circle-bg {
+        r: 70px;
+        cx: 80px;
+        cy: 80px;
+    }
+    
+    .progress-percentage {
+        font-size: 38px;
+    }
+    
+    .progress-title {
+        font-size: 24px;
+    }
+    
+    .progress-subtitle {
+        font-size: 14px;
+        margin-bottom: 30px;
+    }
+    
+    .testimonial-card {
+        padding: 20px;
+    }
+    
+    .progress-circle-container {
+        padding: 30px 15px 20px;
+    }
+}
+
+/* Step 29: Email Collection Styles */
+.email-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.email-selection h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #1a1a1a;
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 1.3;
+}
+
+.email-input-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 24px;
+}
+
+.email-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.email-input {
+    width: 100%;
+    padding: 16px 20px;
+    font-size: 16px;
+    border: 2px solid #e0e0e0;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.3s ease;
+    background: #fff;
+}
+
+.email-input:focus {
+    border-color: #00857A;
+}
+
+.email-input:invalid {
+    border-color: #ff4444;
+}
+
+.email-input.valid {
+    border-color: #00857A;
+}
+
+.email-consent {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 24px;
+    gap: 12px;
+}
+
+.consent-checkbox {
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    cursor: pointer;
+    accent-color: #00857A;
+}
+
+.consent-label {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    cursor: pointer;
+}
+
+.email-privacy {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 30px;
+    padding: 16px;
+    background: #f9f9f9;
+    border-radius: 12px;
+}
+
+.privacy-icon-small {
+    font-size: 16px;
+    min-width: 16px;
+}
+
+.privacy-text-small {
+    font-size: 12px;
+    color: #888;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.email-submit-btn {
+    width: 100%;
+    max-width: 400px;
+    padding: 18px 40px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, #00857A 0%, #00695C 100%);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 133, 122, 0.3);
+}
+
+.email-submit-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 133, 122, 0.4);
+}
+
+.email-submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+}
+
+.email-submit-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .email-selection h2 {
+        font-size: 24px;
+        margin-bottom: 30px;
+    }
+    
+    .email-input {
+        font-size: 16px;
+        padding: 14px 16px;
+    }
+    
+    .email-submit-btn {
+        font-size: 16px;
+        padding: 16px 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .email-selection {
+        padding: 30px 15px;
+    }
+    
+    .email-selection h2 {
+        font-size: 20px;
+    }
+    
+    .consent-label, .privacy-text-small {
+        font-size: 12px;
+    }
+}
+
+

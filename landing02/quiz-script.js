@@ -1,6 +1,6 @@
 // Quiz state
 let currentStep = 1;
-const totalSteps = 27;
+const totalSteps = 29;
 const quizData = {};
 let selectedGender = null; // Track selected gender for dynamic image updates
 
@@ -325,6 +325,13 @@ function goToPreviousStep() {
         return;
     }
     
+    if (currentStep === 28.5) {
+        // From progress circle page, go back to step 28
+        currentStep = 28;
+        updateUI();
+        return;
+    }
+    
     // Handle going back from regular steps to intermediate pages
     if (currentStep === 7) {
         // From step 7, go back to intermediate page 6.5
@@ -350,6 +357,13 @@ function goToPreviousStep() {
     if (currentStep === 22) {
         // From step 22, go back to Keto Celebrities page 21.5
         currentStep = 21.5;
+        updateUI();
+        return;
+    }
+    
+    if (currentStep === 29) {
+        // From email collection (step 29), go back to progress circle page 28.5
+        currentStep = 28.5;
         updateUI();
         return;
     }
@@ -575,6 +589,15 @@ function attachEventListeners() {
     
     // Step 27 - Event date input
     initEventDateSelection();
+    
+    // Step 28 - Weight loss chart
+    initWeightLossChart();
+    
+    // Step 28.5 - Progress circle
+    initProgressCircle();
+    
+    // Step 29 - Email collection
+    initEmailSelection();
     
     // Sidebar menu (if elements exist)
     if (navMenuBtn) {
@@ -2197,6 +2220,351 @@ function initEventDateSelection() {
     }
 }
 
+// Initialize Email Selection (Step 29)
+function initEmailSelection() {
+    const emailInput = document.getElementById('emailInput');
+    const emailUpdatesCheckbox = document.getElementById('emailUpdatesCheckbox');
+    const emailSubmitBtn = document.getElementById('emailSubmitBtn');
+    
+    if (!emailInput || !emailSubmitBtn) return;
+    
+    // Email validation regex
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    // Function to validate email and enable/disable submit button
+    function validateEmail() {
+        const email = emailInput.value.trim();
+        const isValid = emailRegex.test(email);
+        
+        if (isValid) {
+            emailInput.classList.add('valid');
+            emailSubmitBtn.disabled = false;
+        } else {
+            emailInput.classList.remove('valid');
+            emailSubmitBtn.disabled = true;
+        }
+        
+        return isValid;
+    }
+    
+    // Email input handler
+    emailInput.addEventListener('input', validateEmail);
+    
+    // Submit button handler
+    emailSubmitBtn.addEventListener('click', () => {
+        if (validateEmail()) {
+            quizData.email = emailInput.value.trim();
+            quizData.emailUpdates = emailUpdatesCheckbox ? emailUpdatesCheckbox.checked : false;
+            
+            // Log all quiz data (in production, this would be sent to a backend)
+            console.log('Quiz Completed! User Data:', quizData);
+            
+            // You can add submission logic here (e.g., API call)
+            // For now, show a success message
+            alert('Thank you! Your personalized Keto Program is being prepared.');
+            
+            // Optionally redirect to a thank you page or results page
+            // window.location.href = 'thank-you.html';
+        }
+    });
+}
+
+// Initialize Weight Loss Chart (Step 28)
+function initWeightLossChart() {
+    const chartCanvas = document.getElementById('weightChart');
+    const chartSubtitle = document.getElementById('chartSubtitle');
+    const goalDateElement = document.getElementById('goalDate');
+    const continueBtn = document.getElementById('chartContinueBtn');
+    
+    let chartInstance = null;
+    
+    // Function to calculate goal weight based on user data
+    function calculateGoalWeight() {
+        // Get current weight in kg
+        let currentWeight = quizData.weight ? quizData.weight.value : 70;
+        if (quizData.weight && quizData.weight.unit === 'lb') {
+            currentWeight = currentWeight / 2.20462; // Convert to kg
+        }
+        
+        // Calculate goal weight based on goal type
+        let goalWeight = currentWeight;
+        const goal = quizData.goal;
+        
+        if (goal === 'lose-weight') {
+            goalWeight = currentWeight * 0.85; // Lose 15%
+        } else if (goal === 'gain-muscle') {
+            goalWeight = currentWeight * 1.10; // Gain 10% (muscle)
+        } else if (goal === 'get-toned') {
+            goalWeight = currentWeight * 0.92; // Lose 8%
+        }
+        
+        return Math.round(goalWeight);
+    }
+    
+    // Function to calculate timeline
+    function calculateTimeline() {
+        let currentWeight = quizData.weight ? quizData.weight.value : 70;
+        if (quizData.weight && quizData.weight.unit === 'lb') {
+            currentWeight = currentWeight / 2.20462;
+        }
+        
+        const goalWeight = calculateGoalWeight();
+        const weightDifference = Math.abs(currentWeight - goalWeight);
+        
+        // Healthy weight loss: 0.5-1 kg per week
+        // Estimate 0.75 kg per week for calculation
+        const weeksToGoal = Math.ceil(weightDifference / 0.75);
+        
+        return weeksToGoal;
+    }
+    
+    // Function to generate weight progression data
+    function generateWeightData() {
+        let currentWeight = quizData.weight ? quizData.weight.value : 70;
+        if (quizData.weight && quizData.weight.unit === 'lb') {
+            currentWeight = currentWeight / 2.20462;
+        }
+        
+        const goalWeight = calculateGoalWeight();
+        const weeks = calculateTimeline();
+        
+        const dataPoints = [];
+        const labels = [];
+        
+        // Generate data points (weekly)
+        for (let i = 0; i <= weeks; i++) {
+            const progress = i / weeks;
+            // Use exponential decay for more realistic weight loss curve
+            const weight = currentWeight - (currentWeight - goalWeight) * (1 - Math.exp(-3 * progress));
+            dataPoints.push(Math.round(weight * 10) / 10);
+            
+            if (i === 0) {
+                labels.push('Today');
+            } else if (i === weeks) {
+                labels.push('Goal');
+            } else if (i % 4 === 0) {
+                labels.push(`Week ${i}`);
+            } else {
+                labels.push('');
+            }
+        }
+        
+        return { labels, dataPoints, currentWeight: Math.round(currentWeight), goalWeight };
+    }
+    
+    // Function to calculate goal date
+    function calculateGoalDate() {
+        const weeks = calculateTimeline();
+        const today = new Date();
+        const goalDate = new Date(today);
+        goalDate.setDate(goalDate.getDate() + (weeks * 7));
+        
+        const options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return goalDate.toLocaleDateString('en-US', options);
+    }
+    
+    // Function to create/update chart
+    function createChart() {
+        if (!chartCanvas) return;
+        
+        const { labels, dataPoints, currentWeight, goalWeight } = generateWeightData();
+        const goalDate = calculateGoalDate();
+        
+        // Update subtitle and goal date
+        if (chartSubtitle && goalDateElement) {
+            chartSubtitle.textContent = `Based on our calculations, you'll hit your goal weight of ${goalWeight} kg by`;
+            goalDateElement.textContent = goalDate;
+        }
+        
+        // Destroy existing chart if it exists
+        if (chartInstance) {
+            chartInstance.destroy();
+        }
+        
+        // Create gradient
+        const ctx = chartCanvas.getContext('2d');
+        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(255, 150, 150, 0.4)');
+        gradient.addColorStop(0.5, 'rgba(255, 223, 150, 0.3)');
+        gradient.addColorStop(1, 'rgba(150, 255, 200, 0.2)');
+        
+        // Create chart
+        chartInstance = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: 'Weight (kg)',
+                    data: dataPoints,
+                    borderColor: 'rgb(0, 133, 122)',
+                    backgroundColor: gradient,
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4,
+                    pointRadius: (context) => {
+                        const index = context.dataIndex;
+                        return (index === 0 || index === dataPoints.length - 1) ? 6 : 3;
+                    },
+                    pointBackgroundColor: (context) => {
+                        const index = context.dataIndex;
+                        if (index === 0) return 'rgb(255, 100, 100)';
+                        if (index === dataPoints.length - 1) return 'rgb(0, 133, 122)';
+                        return 'rgb(0, 133, 122)';
+                    },
+                    pointBorderColor: '#fff',
+                    pointBorderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + ' kg';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        ticks: {
+                            callback: function(value) {
+                                return value + ' kg';
+                            }
+                        },
+                        grid: {
+                            color: 'rgba(0, 0, 0, 0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Add weight labels at start and end
+        const plugin = {
+            id: 'weightLabels',
+            afterDatasetsDraw: (chart) => {
+                const ctx = chart.ctx;
+                chart.data.datasets.forEach((dataset, datasetIndex) => {
+                    const meta = chart.getDatasetMeta(datasetIndex);
+                    
+                    // First point label
+                    const firstPoint = meta.data[0];
+                    ctx.fillStyle = 'rgb(255, 100, 100)';
+                    ctx.font = 'bold 14px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(`${currentWeight}kg`, firstPoint.x, firstPoint.y - 15);
+                    
+                    // Last point label
+                    const lastPoint = meta.data[meta.data.length - 1];
+                    ctx.fillStyle = 'rgb(0, 133, 122)';
+                    ctx.fillText(`🔥${goalWeight}kg`, lastPoint.x, lastPoint.y - 15);
+                });
+            }
+        };
+        
+        chartInstance.plugins.register(plugin);
+    }
+    
+    // Create chart when step is shown
+    if (chartCanvas) {
+        // Use MutationObserver to detect when step becomes visible
+        const observer = new MutationObserver(() => {
+            const step = chartCanvas.closest('.quiz-step');
+            if (step && step.classList.contains('active')) {
+                setTimeout(() => {
+                    createChart();
+                }, 100);
+            }
+        });
+        
+        const step = chartCanvas.closest('.quiz-step');
+        if (step) {
+            observer.observe(step, { attributes: true, attributeFilter: ['class', 'style'] });
+        }
+    }
+    
+    // Continue button handler
+    if (continueBtn) {
+        continueBtn.addEventListener('click', () => {
+            goToNextStep();
+        });
+    }
+}
+
+// Initialize Progress Circle (Step 28.5)
+function initProgressCircle() {
+    const progressPercentage = document.getElementById('progressPercentage');
+    const progressCircle = document.querySelector('.progress-ring-circle');
+    
+    if (!progressPercentage || !progressCircle) return;
+    
+    const radius = 88;
+    const circumference = 2 * Math.PI * radius;
+    
+    // Set initial state
+    progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+    progressCircle.style.strokeDashoffset = circumference;
+    
+    // Function to update progress
+    function setProgress(percent) {
+        const offset = circumference - (percent / 100) * circumference;
+        progressCircle.style.strokeDashoffset = offset;
+        progressPercentage.textContent = Math.round(percent) + '%';
+    }
+    
+    // Animate from 0 to 100% over 3 seconds
+    function animateProgress() {
+        let progress = 0;
+        const duration = 3000; // 3 seconds
+        const increment = 100 / (duration / 16); // 60fps
+        
+        const animation = setInterval(() => {
+            progress += increment;
+            
+            if (progress >= 100) {
+                progress = 100;
+                clearInterval(animation);
+                
+                // Auto-navigate to email collection after animation completes
+                setTimeout(() => {
+                    goToNextStep();
+                }, 500);
+            }
+            
+            setProgress(progress);
+        }, 16);
+    }
+    
+    // Use MutationObserver to detect when step becomes visible
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            const step = mutation.target;
+            if (step.style.display !== 'none' && parseFloat(step.dataset.step) === 28.5) {
+                animateProgress();
+                observer.disconnect();
+            }
+        });
+    });
+    
+    // Start observing the step element
+    const step = progressPercentage.closest('.quiz-step');
+    if (step) {
+        observer.observe(step, { attributes: true, attributeFilter: ['style'] });
+    }
+}
+
 // Validate current step
 function validateCurrentStep() {
     switch (currentStep) {
@@ -2254,6 +2622,12 @@ function validateCurrentStep() {
             return quizData.importantEvent !== null && quizData.importantEvent !== undefined;
         case 27:
             return true; // Optional step - has skip button
+        case 28:
+            return true; // Chart display step - always valid
+        case 28.5:
+            return true; // Progress circle - intermediate page, always valid
+        case 29:
+            return quizData.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(quizData.email);
         default:
             return true;
     }
