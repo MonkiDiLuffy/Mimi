@@ -10,30 +10,17 @@
     <!-- Header -->
     <header class="header">
         <div class="header-container">
-            <a href="/" class="logo">
-                <img src="../assets/logo.png" alt="Unimeal" width="153" height="40">
-            </a>
-            <div class="header-spacer"></div>
-            <a href="#" class="help-link" title="Need some help?">
+            <button class="back-chevron-btn" id="backChevronBtn">
                 <svg viewBox="0 0 24 24" width="20" height="20">
-                    <circle cx="12" cy="12" r="10" stroke="currentColor" fill="none" stroke-width="2"/>
-                    <path fill="currentColor" d="M12 6c-1.1 0-2 .9-2 2h2c0-.55.45-1 1-1s1 .45 1 1c0 1-1.5 1.25-1.5 2.5V12h2v-.5c0-.55 1.5-1 1.5-2.5 0-1.66-1.34-3-3-3zm-1 9v2h2v-2h-2z"/>
-                </svg>
-                <span>Help</span>
-            </a>
-            <div class="lang-menu">
-                <button class="lang-btn">
-                    <span>En</span>
-                    <svg viewBox="0 0 24 24" width="16" height="16">
-                        <path fill="currentColor" d="M7 10l5 5 5-5z"/>
-                    </svg>
-                </button>
-            </div>
-            <button class="nav-menu-btn">
-                <svg viewBox="0 0 24 24" width="24" height="24">
-                    <path fill="currentColor" d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
                 </svg>
             </button>
+            <a href="/" class="logo">
+                <img src="../assets/1685614091948-keto-logo.png" alt="Unimeal" width="153" height="40">
+            </a>
+            <div class="step-counter">
+                <span id="currentStep">1</span>/<span id="totalSteps">12</span>
+            </div>
         </div>
     </header>
 
@@ -42,9 +29,6 @@
         <div class="progress-container">
             <div class="progress-bar">
                 <div class="progress-fill" id="progressFill"></div>
-            </div>
-            <div class="progress-text">
-                <span id="currentStep">1</span> of <span id="totalSteps">5</span>
             </div>
         </div>
 
@@ -325,7 +309,7 @@
                     <div class="best-shape-selection">
                         <div class="best-shape-layout">
                             <div class="best-shape-image">
-                                <img src="../assets/athletic.webp" alt="Best shape illustration" />
+                                <img src="../assets/ideal-time.png" alt="Best shape illustration" />
                             </div>
                             
                             <div class="best-shape-options">
@@ -357,13 +341,1490 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Intermediate Page - Keto Info (between Step 6 and 7) -->
+            <div class="quiz-step intermediate-page" data-step="6.5">
+                <div class="step-content">
+                    <div class="keto-info-page">
+                        <div class="keto-info-image">
+                            <img src="../assets/studies2.webp" alt="Keto meal" />
+                        </div>
+                        
+                        <div class="keto-info-content">
+                            <h2 class="keto-info-title">What is Keto Meal Plan?</h2>
+                            
+                            <p class="keto-info-description">
+                                The keto meal plan is a low-carb, high-fat eating plan designed to jumpstart the process where your body burns fat rather than carbs for energy.
+                            </p>
+                            
+                            <div class="keto-benefits">
+                                <h3 class="keto-benefits-title">Benefits of Keto Meal Plan</h3>
+                                
+                                <ul class="keto-benefits-list">
+                                    <li class="keto-benefit-item">
+                                        <svg class="check-icon" viewBox="0 0 24 24" width="20" height="20">
+                                            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                                        </svg>
+                                        <span>Significant weight loss</span>
+                                    </li>
+                                    <li class="keto-benefit-item">
+                                        <svg class="check-icon" viewBox="0 0 24 24" width="20" height="20">
+                                            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                                        </svg>
+                                        <span>Positively affects cardiovascular risk factors</span>
+                                    </li>
+                                    <li class="keto-benefit-item">
+                                        <svg class="check-icon" viewBox="0 0 24 24" width="20" height="20">
+                                            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                                        </svg>
+                                        <span>Treating acne</span>
+                                    </li>
+                                    <li class="keto-benefit-item">
+                                        <svg class="check-icon" viewBox="0 0 24 24" width="20" height="20">
+                                            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+                                        </svg>
+                                        <span>Mental health benefits</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            
+                            <button class="keto-continue-btn" id="ketoContinueBtn">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 7 -->
+            <div class="quiz-step" data-step="7">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">Have you heard about the Keto meal plan?</h2>
+                    </div>
+                    
+                    <div class="keto-knowledge-selection">
+                        <div class="keto-knowledge-options">
+                            <label class="keto-knowledge-option" data-value="nothing">
+                                <div class="keto-knowledge-content">
+                                    <span class="keto-knowledge-text">Nothing at all</span>
+                                    <div class="keto-knowledge-emoji">🤔</div>
+                                </div>
+                            </label>
+                            
+                            <label class="keto-knowledge-option" data-value="heard-some">
+                                <div class="keto-knowledge-content">
+                                    <span class="keto-knowledge-text">I've heard a thing or two</span>
+                                    <div class="keto-knowledge-emoji">🙋</div>
+                                </div>
+                            </label>
+                            
+                            <label class="keto-knowledge-option" data-value="experienced">
+                                <div class="keto-knowledge-content">
+                                    <span class="keto-knowledge-text">I'm an experienced faster</span>
+                                    <div class="keto-knowledge-emoji">😎</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 8 -->
+            <div class="quiz-step" data-step="8">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">How do you describe your typical day?</h2>
+                    </div>
+                    
+                    <div class="typical-day-selection">
+                        <div class="typical-day-options">
+                            <label class="typical-day-option" data-value="sitting">
+                                <div class="typical-day-content">
+                                    <span class="typical-day-text">I spend most of the day sitting</span>
+                                    <div class="typical-day-emoji">🧑‍💻</div>
+                                </div>
+                            </label>
+                            
+                            <label class="typical-day-option" data-value="active-breaks">
+                                <div class="typical-day-content">
+                                    <span class="typical-day-text">I take active breaks</span>
+                                    <div class="typical-day-emoji">🧘</div>
+                                </div>
+                            </label>
+                            
+                            <label class="typical-day-option" data-value="on-feet">
+                                <div class="typical-day-content">
+                                    <span class="typical-day-text">I'm on my feet all day long</span>
+                                    <div class="typical-day-emoji">🏃</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 9 -->
+            <div class="quiz-step" data-step="9">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">How much sleep do you usually get?</h2>
+                    </div>
+                    
+                    <div class="sleep-hours-selection">
+                        <div class="sleep-hours-options">
+                            <label class="sleep-hours-option" data-value="less-than-5">
+                                <div class="sleep-hours-content">
+                                    <span class="sleep-hours-text">Less than 5 hours</span>
+                                    <div class="sleep-hours-emoji">🥱</div>
+                                </div>
+                            </label>
+                            
+                            <label class="sleep-hours-option" data-value="5-6">
+                                <div class="sleep-hours-content">
+                                    <span class="sleep-hours-text">5-6 hours</span>
+                                    <div class="sleep-hours-emoji">😴</div>
+                                </div>
+                            </label>
+                            
+                            <label class="sleep-hours-option" data-value="7-8">
+                                <div class="sleep-hours-content">
+                                    <span class="sleep-hours-text">7-8 hours</span>
+                                    <div class="sleep-hours-emoji">🌛</div>
+                                </div>
+                            </label>
+                            
+                            <label class="sleep-hours-option" data-value="more-than-8">
+                                <div class="sleep-hours-content">
+                                    <span class="sleep-hours-text">More than 8 hours</span>
+                                    <div class="sleep-hours-emoji">💫</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 10 -->
+            <div class="quiz-step" data-step="10">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">How much water do you drink daily?</h2>
+                    </div>
+                    
+                    <div class="water-intake-selection">
+                        <div class="water-intake-options">
+                            <label class="water-intake-option" data-value="less-than-0.5">
+                                <div class="water-intake-content">
+                                    <div class="water-intake-text-container">
+                                        <span class="water-intake-text">Less than 0.5 L 💧</span>
+                                        <span class="water-intake-subtext">Fewer than 2 glasses</span>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="water-intake-option" data-value="0.5-1.5">
+                                <div class="water-intake-content">
+                                    <div class="water-intake-text-container">
+                                        <span class="water-intake-text">0.5 - 1.5 L 💧💧</span>
+                                        <span class="water-intake-subtext">2-6 glasses</span>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="water-intake-option" data-value="1.5-2.5">
+                                <div class="water-intake-content">
+                                    <div class="water-intake-text-container">
+                                        <span class="water-intake-text">1.5 - 2.5 L 💧💧💧</span>
+                                        <span class="water-intake-subtext">7-10 glasses</span>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="water-intake-option" data-value="more-than-2.5">
+                                <div class="water-intake-content">
+                                    <div class="water-intake-text-container">
+                                        <span class="water-intake-text">More than 2.5 L 🚰</span>
+                                        <span class="water-intake-subtext">More than 10 glasses</span>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="water-intake-option" data-value="dont-count">
+                                <div class="water-intake-content">
+                                    <div class="water-intake-text-container">
+                                        <span class="water-intake-text">Don't count — it depends 🤷</span>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <button class="water-continue-btn" id="waterContinueBtn" style="display: none;">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 11 -->
+            <div class="quiz-step" data-step="11">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">Do you have any of the following unhealthy habits?</h2>
+                    </div>
+                    
+                    <div class="unhealthy-habits-selection">
+                        <div class="unhealthy-habits-options">
+                            <label class="unhealthy-habit-option" data-value="eat-late">
+                                <div class="unhealthy-habit-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="unhealthy-habit-checkbox">
+                                        <div class="custom-checkbox-habit"></div>
+                                        <span class="unhealthy-habit-text">I eat late at night</span>
+                                    </div>
+                                    <div class="unhealthy-habit-icon">💤</div>
+                                </div>
+                            </label>
+                            
+                            <label class="unhealthy-habit-option" data-value="eating-sweets">
+                                <div class="unhealthy-habit-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="unhealthy-habit-checkbox">
+                                        <div class="custom-checkbox-habit"></div>
+                                        <span class="unhealthy-habit-text">I can't give up eating sweets</span>
+                                    </div>
+                                    <div class="unhealthy-habit-icon">🍫</div>
+                                </div>
+                            </label>
+                            
+                            <label class="unhealthy-habit-option" data-value="soft-drinks">
+                                <div class="unhealthy-habit-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="unhealthy-habit-checkbox">
+                                        <div class="custom-checkbox-habit"></div>
+                                        <span class="unhealthy-habit-text">I love soft drinks</span>
+                                    </div>
+                                    <div class="unhealthy-habit-icon">🥤</div>
+                                </div>
+                            </label>
+                            
+                            <label class="unhealthy-habit-option" data-value="fatty-salty-foods">
+                                <div class="unhealthy-habit-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="unhealthy-habit-checkbox">
+                                        <div class="custom-checkbox-habit"></div>
+                                        <span class="unhealthy-habit-text">I love fatty or salty foods</span>
+                                    </div>
+                                    <div class="unhealthy-habit-icon">🧂</div>
+                                </div>
+                            </label>
+                            
+                            <label class="unhealthy-habit-option" data-value="none">
+                                <div class="unhealthy-habit-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="unhealthy-habit-checkbox">
+                                        <div class="custom-checkbox-habit"></div>
+                                        <span class="unhealthy-habit-text">None of the above</span>
+                                    </div>
+                                    <div class="unhealthy-habit-icon">❌</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 12 -->
+            <div class="quiz-step" data-step="12">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">How often do you workout?</h2>
+                    </div>
+                    
+                    <div class="workout-frequency-selection">
+                        <div class="workout-frequency-layout">
+                            <div class="workout-frequency-image">
+                                <img src="../assets/social-MALE.webp" alt="Workout illustration" />
+                            </div>
+                            
+                            <div class="workout-frequency-options">
+                                <label class="workout-frequency-option" data-value="almost-every-day">
+                                    <div class="workout-frequency-content">
+                                        <span class="workout-frequency-text">Almost every day</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="workout-frequency-option" data-value="several-per-week">
+                                    <div class="workout-frequency-content">
+                                        <span class="workout-frequency-text">Several times per week</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="workout-frequency-option" data-value="several-per-month">
+                                    <div class="workout-frequency-content">
+                                        <span class="workout-frequency-text">Several times per month</span>
+                                    </div>
+                                </label>
+                                
+                                <label class="workout-frequency-option" data-value="never">
+                                    <div class="workout-frequency-content">
+                                        <span class="workout-frequency-text">Never</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate Page - Workout Motivation (between Step 12 and 13) -->
+            <div class="quiz-step intermediate-page" data-step="12.5">
+                <div class="step-content">
+                    <div class="workout-motivation-page">
+                        <div class="workout-motivation-image">
+                            <img src="../assets/studies2.webp" alt="Keto meal" />
+                        </div>
+                        
+                        <div class="workout-motivation-content">
+                            <h2 class="workout-motivation-title">No workouts needed to see results on Keto Meal Plan</h2>
+                            
+                            <p class="workout-motivation-description">
+                                Keto can be really effective, even without exercising. On average, people following a keto meal plan for several months are able to get sustainable results without a yo-yo effect.
+                            </p>
+                            
+                            <button class="workout-motivation-continue-btn" id="workoutMotivationContinueBtn">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 13 -->
+            <div class="quiz-step" data-step="13">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">Do you have any dietary restrictions?</h2>
+                    </div>
+                    
+                    <div class="dietary-restrictions-selection">
+                        <div class="dietary-restrictions-options">
+                            <label class="dietary-restriction-option" data-value="none">
+                                <div class="dietary-restriction-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dietary-restriction-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <div class="dietary-restriction-text-container">
+                                        <span class="dietary-restriction-title">None of the above</span>
+                                        <span class="dietary-restriction-description">I eat pretty much everything</span>
+                                    </div>
+                                    <div class="dietary-restriction-emoji">❌</div>
+                                </div>
+                            </label>
+                            
+                            <label class="dietary-restriction-option" data-value="lactose-free">
+                                <div class="dietary-restriction-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dietary-restriction-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <div class="dietary-restriction-text-container">
+                                        <span class="dietary-restriction-title">Lactose-free</span>
+                                        <span class="dietary-restriction-description">I do not consume foods with lactose</span>
+                                    </div>
+                                    <div class="dietary-restriction-emoji">🥛🚫</div>
+                                </div>
+                            </label>
+                            
+                            <label class="dietary-restriction-option" data-value="gluten-free">
+                                <div class="dietary-restriction-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dietary-restriction-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <div class="dietary-restriction-text-container">
+                                        <span class="dietary-restriction-title">Gluten-free</span>
+                                        <span class="dietary-restriction-description">I avoid gluten-containing grains</span>
+                                    </div>
+                                    <div class="dietary-restriction-emoji">🍩🚫</div>
+                                </div>
+                            </label>
+                            
+                            <label class="dietary-restriction-option" data-value="vegetarian">
+                                <div class="dietary-restriction-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dietary-restriction-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <div class="dietary-restriction-text-container">
+                                        <span class="dietary-restriction-title">Vegetarian</span>
+                                        <span class="dietary-restriction-description">I avoid meat</span>
+                                    </div>
+                                    <div class="dietary-restriction-emoji">🥦</div>
+                                </div>
+                            </label>
+                            
+                            <label class="dietary-restriction-option" data-value="vegan">
+                                <div class="dietary-restriction-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dietary-restriction-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <div class="dietary-restriction-text-container">
+                                        <span class="dietary-restriction-title">Vegan</span>
+                                        <span class="dietary-restriction-description">I do not eat animal products</span>
+                                    </div>
+                                    <div class="dietary-restriction-emoji">🌱</div>
+                                </div>
+                            </label>
+                            
+                            <label class="dietary-restriction-option" data-value="no-fish">
+                                <div class="dietary-restriction-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dietary-restriction-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <div class="dietary-restriction-text-container">
+                                        <span class="dietary-restriction-title">No fish</span>
+                                        <span class="dietary-restriction-description">Only fish-free meals for me!</span>
+                                    </div>
+                                    <div class="dietary-restriction-emoji">🐟🚫</div>
+                                </div>
+                            </label>
+                            
+                            <label class="dietary-restriction-option" data-value="no-seafood">
+                                <div class="dietary-restriction-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dietary-restriction-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <div class="dietary-restriction-text-container">
+                                        <span class="dietary-restriction-title">No seafood</span>
+                                        <span class="dietary-restriction-description">I avoid shellfish, mollusks and crustaceans</span>
+                                    </div>
+                                    <div class="dietary-restriction-emoji">🦞🚫</div>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <button class="dietary-next-btn" id="dietaryNextBtn">
+                            Next step
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 14 -->
+            <div class="quiz-step" data-step="14">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">Do you prefer cooking, dining out, or ordering in?</h2>
+                    </div>
+                    
+                    <div class="cooking-preference-selection">
+                        <div class="cooking-preference-options">
+                            <label class="cooking-preference-option" data-value="cooking-home">
+                                <div class="cooking-preference-content">
+                                    <span class="cooking-preference-text">Cooking at home for me!</span>
+                                    <span class="cooking-preference-emoji">🍲</span>
+                                </div>
+                            </label>
+                            
+                            <label class="cooking-preference-option" data-value="restaurant">
+                                <div class="cooking-preference-content">
+                                    <span class="cooking-preference-text">I'd rather go to a restaurant</span>
+                                    <span class="cooking-preference-emoji">🍴</span>
+                                </div>
+                            </label>
+                            
+                            <label class="cooking-preference-option" data-value="takeout">
+                                <div class="cooking-preference-content">
+                                    <span class="cooking-preference-text">I'm a big fan of takeout food</span>
+                                    <span class="cooking-preference-emoji">🥡</span>
+                                </div>
+                            </label>
+                            
+                            <label class="cooking-preference-option" data-value="everything">
+                                <div class="cooking-preference-content">
+                                    <span class="cooking-preference-text">I do a little bit of everything</span>
+                                    <span class="cooking-preference-emoji">😊</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 15 -->
+            <div class="quiz-step" data-step="15">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">How many meals a day would you like to have?</h2>
+                    </div>
+                    
+                    <div class="meals-per-day-selection">
+                        <div class="meals-per-day-options">
+                            <label class="meals-per-day-option" data-value="2-meals">
+                                <div class="meals-per-day-content">
+                                    <div class="meals-per-day-text-container">
+                                        <div class="meals-per-day-title">2 meals per day 🍳 🍪</div>
+                                        <div class="meals-per-day-description">Breakfast and dinner</div>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="meals-per-day-option" data-value="3-meals">
+                                <div class="meals-per-day-content">
+                                    <div class="meals-per-day-text-container">
+                                        <div class="meals-per-day-title">3 meals per day 🍳 🥗 🍪</div>
+                                        <div class="meals-per-day-description">Breakfast, lunch, and dinner</div>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="meals-per-day-option" data-value="4-meals">
+                                <div class="meals-per-day-content">
+                                    <div class="meals-per-day-text-container">
+                                        <div class="meals-per-day-title">4 meals per day 🍳 🥗 🍪 🍕</div>
+                                        <div class="meals-per-day-description">Breakfast, lunch, dinner, and a snack</div>
+                                    </div>
+                                </div>
+                            </label>
+                            
+                            <label class="meals-per-day-option" data-value="5-meals">
+                                <div class="meals-per-day-content">
+                                    <div class="meals-per-day-text-container">
+                                        <div class="meals-per-day-title">5 meals per day 🍳 🥗 🍪 🍕 🥖</div>
+                                        <div class="meals-per-day-description">Breakfast, lunch, dinner, and 2 snacks</div>
+                                    </div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 16 -->
+            <div class="quiz-step" data-step="16">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">Like or Dislike Keto Dish</h2>
+                    </div>
+                    
+                    <div class="keto-dish-rating">
+                        <div class="dish-image-container">
+                            <img src="../assets/about-info.webp" alt="Ham or Beans, Mushroom & Spinach Frittata" class="dish-image" />
+                            <div class="dish-name-overlay">
+                                <h3 class="dish-name">Ham or Beans, Mushroom & Spinach Frittata</h3>
+                            </div>
+                        </div>
+                        
+                        <div class="dish-rating-options">
+                            <button class="dish-rating-btn" data-value="dislike">
+                                <span class="rating-emoji">👎</span>
+                                <span class="rating-label">Dislike</span>
+                            </button>
+                            
+                            <button class="dish-rating-btn" data-value="neutral">
+                                <span class="rating-emoji">😐</span>
+                                <span class="rating-label">Neutral</span>
+                            </button>
+                            
+                            <button class="dish-rating-btn" data-value="like">
+                                <span class="rating-emoji">😋</span>
+                                <span class="rating-label">Like</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate Page - Health Coaches (between Step 16 and 17) -->
+            <div class="quiz-step intermediate-page" data-step="16.5">
+                <div class="step-content">
+                    <div class="health-coaches-page">
+                        <h2 class="health-coaches-title">Our health & wellness coaches about the Keto Meal Plan</h2>
+                        
+                        <div class="coaches-testimonials">
+                            <div class="coach-card" style="background-color: #D6E9F5;">
+                                <div class="quote-icon">❝</div>
+                                <p class="coach-quote">
+                                    Keto helps lose fat and improves metabolic function. With keto, your metabolism doesn't slow down after your weight loss.
+                                </p>
+                                <div class="coach-info">
+                                    <img src="../assets/female.png" alt="Ievgeniia Dobrynina" class="coach-avatar" />
+                                    <div class="coach-details">
+                                        <h3 class="coach-name">Ievgeniia Dobrynina</h3>
+                                        <p class="coach-title">Head of Nutrition at Unimeal</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="coach-card" style="background-color: #EDD9E8;">
+                                <div class="quote-icon">❝</div>
+                                <p class="coach-quote">
+                                    The standart keto meal plan means consuming 5-10% of calories as carbs, 70-90% as fats, and 10-20% as protein.
+                                </p>
+                                <div class="coach-info">
+                                    <img src="../assets/female.png" alt="Mariia Roza" class="coach-avatar" />
+                                    <div class="coach-details">
+                                        <h3 class="coach-name">Mariia Roza</h3>
+                                        <p class="coach-title">Health & wellness expert</p>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="coach-card" style="background-color: #D4E8E4;">
+                                <div class="quote-icon">❝</div>
+                                <p class="coach-quote">
+                                    Stick to whole foods with keto. By doing so, you can get the most nutrients and much-needed fiber.
+                                </p>
+                                <div class="coach-info">
+                                    <img src="../assets/female.png" alt="Taisiia Dobrozorova" class="coach-avatar" />
+                                    <div class="coach-details">
+                                        <h3 class="coach-name">Taisiia Dobrozorova</h3>
+                                        <p class="coach-title">Health & wellness expert</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="health-coaches-continue-btn" id="healthCoachesContinueBtn">
+                            Continue
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 17 -->
+            <div class="quiz-step" data-step="17">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">Choose the vegetables you'd like to see in your meal plan</h2>
+                    </div>
+                    
+                    <div class="vegetables-selection">
+                        <div class="keto-toggle-container">
+                            <label class="keto-toggle-label">
+                                <input type="checkbox" id="ketoToggle" class="keto-toggle-input">
+                                <span class="keto-toggle-switch"></span>
+                                <span class="keto-toggle-text">Keto meal plan</span>
+                            </label>
+                        </div>
+                        
+                        <div class="vegetables-options">
+                            <label class="vegetable-option" data-value="onion" data-keto="false">
+                                <div class="vegetable-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="vegetable-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="vegetable-name">Onion</span>
+                                    <span class="vegetable-emoji">🧅</span>
+                                </div>
+                            </label>
+                            
+                            <label class="vegetable-option" data-value="carrots" data-keto="false">
+                                <div class="vegetable-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="vegetable-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="vegetable-name">Carrots</span>
+                                    <span class="vegetable-emoji">🥕</span>
+                                </div>
+                            </label>
+                            
+                            <label class="vegetable-option" data-value="tomato" data-keto="true">
+                                <div class="vegetable-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="vegetable-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="vegetable-name">Tomato</span>
+                                    <span class="vegetable-emoji">🍅</span>
+                                </div>
+                            </label>
+                            
+                            <label class="vegetable-option" data-value="cucumber" data-keto="true">
+                                <div class="vegetable-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="vegetable-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="vegetable-name">Cucumber</span>
+                                    <span class="vegetable-emoji">🥒</span>
+                                </div>
+                            </label>
+                            
+                            <label class="vegetable-option" data-value="bell-pepper" data-keto="true">
+                                <div class="vegetable-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="vegetable-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="vegetable-name">Bell pepper</span>
+                                    <span class="vegetable-emoji">🫑</span>
+                                </div>
+                            </label>
+                            
+                            <label class="vegetable-option" data-value="spinach" data-keto="true">
+                                <div class="vegetable-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="vegetable-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="vegetable-name">Spinach</span>
+                                    <span class="vegetable-emoji">🥬</span>
+                                </div>
+                            </label>
+                            
+                            <label class="vegetable-option" data-value="mushrooms" data-keto="true">
+                                <div class="vegetable-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="vegetable-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="vegetable-name">Mushrooms</span>
+                                    <span class="vegetable-emoji">🍄</span>
+                                </div>
+                            </label>
+                            
+                            <label class="vegetable-option" data-value="cocktail-tomatoes" data-keto="true">
+                                <div class="vegetable-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="vegetable-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="vegetable-name">Cocktail tomatoes</span>
+                                    <span class="vegetable-emoji">🍅</span>
+                                </div>
+                            </label>
+                            
+                            <label class="vegetable-option" data-value="lettuce" data-keto="true">
+                                <div class="vegetable-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="vegetable-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="vegetable-name">Lettuce</span>
+                                    <span class="vegetable-emoji">🥬</span>
+                                </div>
+                            </label>
+                            
+                            <label class="vegetable-option" data-value="zucchini" data-keto="true">
+                                <div class="vegetable-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="vegetable-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="vegetable-name">Zucchini</span>
+                                    <span class="vegetable-emoji">🥒</span>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <button class="vegetables-next-btn" id="vegetablesNextBtn">
+                            Next step
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 18 -->
+            <div class="quiz-step" data-step="18">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">Choose the cereals you'd like to see in your meal plan</h2>
+                    </div>
+                    
+                    <div class="cereals-selection">
+                        <div class="keto-toggle-container">
+                            <label class="keto-toggle-label">
+                                <input type="checkbox" id="ketoToggleCereals" class="keto-toggle-input">
+                                <span class="keto-toggle-switch"></span>
+                                <span class="keto-toggle-text">Keto meal plan</span>
+                            </label>
+                        </div>
+                        
+                        <div class="cereals-options">
+                            <label class="cereal-option" data-value="rice" data-keto="false">
+                                <div class="cereal-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="cereal-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="cereal-name">Rice</span>
+                                    <span class="cereal-emoji">🍚</span>
+                                </div>
+                            </label>
+                            
+                            <label class="cereal-option" data-value="spaghetti" data-keto="false">
+                                <div class="cereal-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="cereal-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="cereal-name">Spaghetti</span>
+                                    <span class="cereal-emoji">🍝</span>
+                                </div>
+                            </label>
+                            
+                            <label class="cereal-option" data-value="whole-grain-bread" data-keto="false">
+                                <div class="cereal-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="cereal-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="cereal-name">Whole grain bread</span>
+                                    <span class="cereal-emoji">🍞</span>
+                                </div>
+                            </label>
+                            
+                            <label class="cereal-option" data-value="couscous" data-keto="true">
+                                <div class="cereal-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="cereal-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="cereal-name">Couscous</span>
+                                    <span class="cereal-emoji">🍚</span>
+                                </div>
+                            </label>
+                            
+                            <label class="cereal-option" data-value="quick-cooking-oats" data-keto="false">
+                                <div class="cereal-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="cereal-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="cereal-name">Quick-cooking oats</span>
+                                    <span class="cereal-emoji">🍚</span>
+                                </div>
+                            </label>
+                            
+                            <label class="cereal-option" data-value="quinoa" data-keto="true">
+                                <div class="cereal-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="cereal-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="cereal-name">Quinoa</span>
+                                    <span class="cereal-emoji">🍚</span>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <button class="cereals-next-btn" id="cerealsNextBtn">
+                            Next step
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 19 -->
+            <div class="quiz-step" data-step="19">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">Choose the meat and fish you'd like to see in your meal plan</h2>
+                    </div>
+                    
+                    <div class="meat-selection">
+                        <div class="keto-toggle-container">
+                            <label class="keto-toggle-label">
+                                <input type="checkbox" id="ketoToggleMeat" class="keto-toggle-input">
+                                <span class="keto-toggle-switch"></span>
+                                <span class="keto-toggle-text">Keto meal plan</span>
+                            </label>
+                        </div>
+                        
+                        <div class="meat-options">
+                            <label class="meat-option" data-value="eggs" data-keto="true">
+                                <div class="meat-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="meat-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="meat-name">Eggs</span>
+                                    <span class="meat-emoji">🥚</span>
+                                </div>
+                            </label>
+                            
+                            <label class="meat-option" data-value="chicken-breast" data-keto="true">
+                                <div class="meat-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="meat-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="meat-name">Chicken breast</span>
+                                    <span class="meat-emoji">🍗</span>
+                                </div>
+                            </label>
+                            
+                            <label class="meat-option" data-value="turkey-breast" data-keto="true">
+                                <div class="meat-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="meat-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="meat-name">Turkey breast</span>
+                                    <span class="meat-emoji">🦃</span>
+                                </div>
+                            </label>
+                            
+                            <label class="meat-option" data-value="chicken-sausage" data-keto="true">
+                                <div class="meat-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="meat-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="meat-name">Chicken sausage</span>
+                                    <span class="meat-emoji">🌭</span>
+                                </div>
+                            </label>
+                            
+                            <label class="meat-option" data-value="chicken-ham" data-keto="true">
+                                <div class="meat-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="meat-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="meat-name">Chicken ham</span>
+                                    <span class="meat-emoji">🍖</span>
+                                </div>
+                            </label>
+                            
+                            <label class="meat-option" data-value="ground-chicken" data-keto="true">
+                                <div class="meat-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="meat-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="meat-name">Ground chicken</span>
+                                    <span class="meat-emoji">🍗</span>
+                                </div>
+                            </label>
+                            
+                            <label class="meat-option" data-value="beef" data-keto="true">
+                                <div class="meat-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="meat-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="meat-name">Beef</span>
+                                    <span class="meat-emoji">🥩</span>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <button class="meat-next-btn" id="meatNextBtn">
+                            Next step
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 20 -->
+            <div class="quiz-step" data-step="20">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">Mark the fish and seafood you would like to include:</h2>
+                    </div>
+                    
+                    <div class="seafood-selection">
+                        <div class="keto-toggle-container">
+                            <label class="keto-toggle-label">
+                                <input type="checkbox" id="ketoToggleSeafood" class="keto-toggle-input">
+                                <span class="keto-toggle-switch"></span>
+                                <span class="keto-toggle-text">Keto meal plan</span>
+                            </label>
+                        </div>
+                        
+                        <div class="seafood-options">
+                            <label class="seafood-option" data-value="salmon" data-keto="false">
+                                <div class="seafood-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="seafood-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="seafood-name">Salmon</span>
+                                    <span class="seafood-emoji">🐟</span>
+                                </div>
+                            </label>
+                            
+                            <label class="seafood-option" data-value="canned-tuna" data-keto="false">
+                                <div class="seafood-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="seafood-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="seafood-name">Canned tuna</span>
+                                    <span class="seafood-emoji">🥫</span>
+                                </div>
+                            </label>
+                            
+                            <label class="seafood-option" data-value="sea-bass" data-keto="false">
+                                <div class="seafood-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="seafood-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="seafood-name">Sea bass</span>
+                                    <span class="seafood-emoji">🐟</span>
+                                </div>
+                            </label>
+                            
+                            <label class="seafood-option" data-value="seafood-cocktails" data-keto="true">
+                                <div class="seafood-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="seafood-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="seafood-name">Seafood cocktails</span>
+                                    <span class="seafood-emoji">🍤</span>
+                                </div>
+                            </label>
+                            
+                            <label class="seafood-option" data-value="shrimps" data-keto="true">
+                                <div class="seafood-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="seafood-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="seafood-name">Shrimps</span>
+                                    <span class="seafood-emoji">🦐</span>
+                                </div>
+                            </label>
+                            
+                            <label class="seafood-option" data-value="river-trout-fillet" data-keto="false">
+                                <div class="seafood-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="seafood-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="seafood-name">River trout fillet</span>
+                                    <span class="seafood-emoji">🐟</span>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <button class="seafood-next-btn" id="seafoodNextBtn">
+                            Next step
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 21 -->
+            <div class="quiz-step" data-step="21">
+                <div class="step-content">
+                    <div class="step-header">
+                        <h2 class="step-question">Mark the dairy products you would like to include:</h2>
+                    </div>
+                    
+                    <div class="dairy-selection">
+                        <div class="keto-toggle-container">
+                            <label class="keto-toggle-label">
+                                <input type="checkbox" id="ketoToggleDairy" class="keto-toggle-input">
+                                <span class="keto-toggle-switch"></span>
+                                <span class="keto-toggle-text">Keto meal plan</span>
+                            </label>
+                        </div>
+                        
+                        <div class="dairy-options">
+                            <label class="dairy-option" data-value="tofu" data-keto="true">
+                                <div class="dairy-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dairy-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="dairy-name">Tofu</span>
+                                    <span class="dairy-emoji">🧈</span>
+                                </div>
+                            </label>
+                            
+                            <label class="dairy-option" data-value="feta-cheese" data-keto="true">
+                                <div class="dairy-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dairy-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="dairy-name">Feta cheese</span>
+                                    <span class="dairy-emoji">🧀</span>
+                                </div>
+                            </label>
+                            
+                            <label class="dairy-option" data-value="mozzarella" data-keto="true">
+                                <div class="dairy-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dairy-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="dairy-name">Mozzarella</span>
+                                    <span class="dairy-emoji">🧀</span>
+                                </div>
+                            </label>
+                            
+                            <label class="dairy-option" data-value="cream-cheese-philadelphia" data-keto="true">
+                                <div class="dairy-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dairy-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="dairy-name">Cream cheese Philadelphia light</span>
+                                    <span class="dairy-emoji">🧈</span>
+                                </div>
+                            </label>
+                            
+                            <label class="dairy-option" data-value="greek-yogurt" data-keto="true">
+                                <div class="dairy-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dairy-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="dairy-name">Greek yogurt</span>
+                                    <span class="dairy-emoji">🥛</span>
+                                </div>
+                            </label>
+                            
+                            <label class="dairy-option" data-value="grated-parmesan" data-keto="true">
+                                <div class="dairy-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dairy-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="dairy-name">Grated parmesan</span>
+                                    <span class="dairy-emoji">🧀</span>
+                                </div>
+                            </label>
+                            
+                            <label class="dairy-option" data-value="cheese" data-keto="true">
+                                <div class="dairy-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dairy-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="dairy-name">Cheese</span>
+                                    <span class="dairy-emoji">🧀</span>
+                                </div>
+                            </label>
+                            
+                            <label class="dairy-option" data-value="half-and-half-cream" data-keto="true">
+                                <div class="dairy-content">
+                                    <div class="checkbox-wrapper">
+                                        <input type="checkbox" class="dairy-checkbox">
+                                        <span class="custom-checkbox"></span>
+                                    </div>
+                                    <span class="dairy-name">Half-and-half cream</span>
+                                    <span class="dairy-emoji">🥛</span>
+                                </div>
+                            </label>
+                        </div>
+                        
+                        <button class="dairy-next-btn" id="dairyNextBtn">
+                            Next step
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Intermediate Page: Keto Celebrities (21.5) -->
+            <div class="quiz-step intermediate-page" data-step="21.5" style="display: none;">
+                <div class="keto-celebs-content">
+                    <h1 class="keto-celebs-title">The Revolutionary Meal Plan: celebs in love with Keto</h1>
+                    
+                    <div class="celebs-photos">
+                        <img src="../assets/social-MALE.webp" alt="Celebrity transformations" class="celebs-image">
+                    </div>
+
+                    <div class="celebs-cards">
+                        <div class="celeb-card card-yellow">
+                            <div class="celeb-emoji">👍</div>
+                            <h3 class="celeb-name">Jorge Garcia</h3>
+                            <p class="celeb-subtitle">Actor, TV show "Lost"</p>
+                            <p class="celeb-description">By following this regime, Jorge managed to lose a significant amount of weight, though it's worth noting that specifics regarding his weight loss journey remain private, and the full approach likely involved more than just the meal plan.</p>
+                        </div>
+
+                        <div class="celeb-card card-purple">
+                            <div class="celeb-emoji">😍</div>
+                            <h3 class="celeb-name">Vinny Guadagnino</h3>
+                            <p class="celeb-subtitle">Reality television personality</p>
+                            <p class="celeb-description">The "Jersey Shore" star nicknamed "Keto Guido" has been very vocal about his weight loss journey on the keto meal plan. He has shared his keto experiences and meals with his followers on social media.</p>
+                        </div>
+
+                        <div class="celeb-card card-cyan">
+                            <div class="celeb-emoji">🔥</div>
+                            <h3 class="celeb-name">Al Roker</h3>
+                            <p class="celeb-subtitle">Co-host of NBC's "Today" show</p>
+                            <p class="celeb-description">Al Roker adopted the ketogenic meal plan as a means to maintain his weight and stay healthy, and he has publicly spoken about his success. Al shared his meals and recipes on social media, and even defended the meal plan when it faced criticism.</p>
+                        </div>
+                    </div>
+
+                    <button class="keto-celebs-continue-btn" id="ketoCelebsContinueBtn">Continue</button>
+                </div>
+            </div>
+
+            <!-- Step 22: Fruits/Berries -->
+            <div class="quiz-step" data-step="22" style="display: none;">
+                <div class="fruits-selection">
+                    <div class="selection-header">
+                        <h2>Select the fruits and berries you are ready to add to your diet</h2>
+                        <p>Choose all that apply</p>
+                    </div>
+
+                    <div class="keto-toggle-wrapper">
+                        <label class="keto-toggle">
+                            <input type="checkbox" id="ketoToggle22">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label">Show only keto-friendly foods</span>
+                    </div>
+
+                    <div class="fruits-options">
+                        <div class="fruit-option" data-value="bananas" data-keto="false">
+                            <input type="checkbox" id="fruit-bananas">
+                            <label for="fruit-bananas">
+                                <div class="fruit-content">
+                                    <span class="fruit-emoji">🍌</span>
+                                    <span class="fruit-name">Bananas</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="fruit-option" data-value="mango" data-keto="false">
+                            <input type="checkbox" id="fruit-mango">
+                            <label for="fruit-mango">
+                                <div class="fruit-content">
+                                    <span class="fruit-emoji">🥭</span>
+                                    <span class="fruit-name">Mango</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="fruit-option" data-value="avocado" data-keto="true">
+                            <input type="checkbox" id="fruit-avocado">
+                            <label for="fruit-avocado">
+                                <div class="fruit-content">
+                                    <span class="fruit-emoji">🥑</span>
+                                    <span class="fruit-name">Avocado</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="fruit-option" data-value="apple" data-keto="true">
+                            <input type="checkbox" id="fruit-apple">
+                            <label for="fruit-apple">
+                                <div class="fruit-content">
+                                    <span class="fruit-emoji">🍎</span>
+                                    <span class="fruit-name">Apple</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="fruit-option" data-value="pear" data-keto="true">
+                            <input type="checkbox" id="fruit-pear">
+                            <label for="fruit-pear">
+                                <div class="fruit-content">
+                                    <span class="fruit-emoji">🍐</span>
+                                    <span class="fruit-name">Pear</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="fruit-option" data-value="fresh-berries" data-keto="true">
+                            <input type="checkbox" id="fruit-fresh-berries">
+                            <label for="fruit-fresh-berries">
+                                <div class="fruit-content">
+                                    <span class="fruit-emoji">🫐</span>
+                                    <span class="fruit-name">Fresh berries</span>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="fruit-option" data-value="orange" data-keto="true">
+                            <input type="checkbox" id="fruit-orange">
+                            <label for="fruit-orange">
+                                <div class="fruit-content">
+                                    <span class="fruit-emoji">🍊</span>
+                                    <span class="fruit-name">Orange</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+
+                    <button class="fruits-next-btn" id="fruitsNextBtn" disabled>Next step</button>
+                </div>
+            </div>
+
+            <!-- Step 23: Height -->
+            <div class="quiz-step" data-step="23" style="display: none;">
+                <div class="height-selection">
+                    <h2>What is your height?</h2>
+                    
+                    <div class="unit-toggle">
+                        <button class="unit-btn active" data-unit="ft" id="ftBtn">ft</button>
+                        <button class="unit-btn" data-unit="cm" id="cmBtn">cm</button>
+                    </div>
+                    
+                    <div class="height-input-wrapper">
+                        <label for="heightInput" class="height-label">Height (cm)</label>
+                        <input 
+                            type="number" 
+                            id="heightInput" 
+                            class="height-input" 
+                            placeholder="0 cm"
+                            min="0"
+                            step="1"
+                        >
+                    </div>
+                    
+                    <div class="bmi-info">
+                        <span class="bmi-emoji">🤚</span>
+                        <div class="bmi-text">
+                            <strong>Calculating your body mass index</strong>
+                            <p>BMI is widely used as a risk indicator for the development or prevalence of several health issues.</p>
+                        </div>
+                    </div>
+                    
+                    <button class="height-next-btn" id="heightNextBtn" disabled>Next step</button>
+                </div>
+            </div>
+
+            <!-- Step 24: Current Weight -->
+            <div class="quiz-step" data-step="24" style="display: none;">
+                <div class="weight-selection">
+                    <h2>What is your current weight?</h2>
+                    
+                    <div class="unit-toggle">
+                        <button class="unit-btn active" data-unit="lb" id="lbBtn">lb</button>
+                        <button class="unit-btn" data-unit="kg" id="kgBtn">kg</button>
+                    </div>
+                    
+                    <div class="weight-input-wrapper">
+                        <label for="weightInput" class="weight-label">Current weight (kg)</label>
+                        <input 
+                            type="number" 
+                            id="weightInput" 
+                            class="weight-input" 
+                            placeholder="0 kg"
+                            min="0"
+                            step="0.1"
+                        >
+                    </div>
+                    
+                    <button class="weight-next-btn" id="weightNextBtn" disabled>Next step</button>
+                </div>
+            </div>
+
+            <!-- Step 25: Age -->
+            <div class="quiz-step" data-step="25" style="display: none;">
+                <div class="age-selection">
+                    <h2>What is your age?</h2>
+                    
+                    <div class="age-input-wrapper">
+                        <label for="ageInput" class="age-label">Age</label>
+                        <input 
+                            type="number" 
+                            id="ageInput" 
+                            class="age-input" 
+                            placeholder="23"
+                            min="18"
+                            max="100"
+                            step="1"
+                        >
+                    </div>
+                    
+                    <div class="age-info">
+                        <span class="age-emoji">🤚</span>
+                        <div class="age-text">
+                            <strong>We ask your age to create your personal plan</strong>
+                            <p>Older people tend to have more body fat than younger people with the same BMI.</p>
+                        </div>
+                    </div>
+                    
+                    <button class="age-next-btn" id="ageNextBtn" disabled>Next step</button>
+                </div>
+            </div>
+
+            <!-- Step 26: Important Events -->
+            <div class="quiz-step" data-step="26" style="display: none;">
+                <div class="events-selection">
+                    <h2>Do you have any important event coming up?</h2>
+                    <p class="events-subtitle">Having something to look forward to can be a great motivator for reaching your goal</p>
+                    
+                    <div class="events-options">
+                        <div class="event-option" data-value="vacation">
+                            <span class="event-text">Vacation</span>
+                            <span class="event-emoji">✈️</span>
+                        </div>
+                        
+                        <div class="event-option" data-value="wedding">
+                            <span class="event-text">Wedding</span>
+                            <span class="event-emoji">🤵</span>
+                        </div>
+                        
+                        <div class="event-option" data-value="holiday">
+                            <span class="event-text">Holiday</span>
+                            <span class="event-emoji">⛱️</span>
+                        </div>
+                        
+                        <div class="event-option" data-value="sporting-event">
+                            <span class="event-text">Sporting event</span>
+                            <span class="event-emoji">🏆</span>
+                        </div>
+                        
+                        <div class="event-option" data-value="reunion">
+                            <span class="event-text">Reunion</span>
+                            <span class="event-emoji">🎉</span>
+                        </div>
+                        
+                        <div class="event-option" data-value="birthday">
+                            <span class="event-text">Birthday</span>
+                            <span class="event-emoji">🎂</span>
+                        </div>
+                        
+                        <div class="event-option" data-value="other">
+                            <span class="event-text">Other</span>
+                            <span class="event-emoji">🙋</span>
+                        </div>
+                        
+                        <div class="event-option" data-value="no-special-events">
+                            <span class="event-text">No special events any time soon</span>
+                            <span class="event-emoji">🤷</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 27: Event Date -->
+            <div class="quiz-step" data-step="27" style="display: none;">
+                <div class="event-date-selection">
+                    <h2>When is your event?</h2>
+                    <p class="event-date-subtitle">We will keep this important event in mind for your journey</p>
+                    
+                    <div class="event-date-input-wrapper">
+                        <label for="eventDateInput" class="event-date-label">Your date</label>
+                        <input 
+                            type="date" 
+                            id="eventDateInput" 
+                            class="event-date-input"
+                        >
+                    </div>
+                    
+                    <div class="privacy-notice">
+                        <span class="privacy-icon">🔒</span>
+                        <p class="privacy-text">We are not sharing this data with any third parties. We recommend you to consult your physician before starting to follow any weight loss program</p>
+                    </div>
+                    
+                    <button class="event-date-continue-btn" id="eventDateContinueBtn" disabled>Continue</button>
+                    <button class="event-date-skip-btn" id="eventDateSkipBtn">Skip this step</button>
+                </div>
+            </div>
         </main>
 
-        <!-- Navigation Buttons -->
-        <div class="quiz-navigation">
-            <button class="nav-btn back-btn" id="backBtn">
-                <span>← Back</span>
-            </button>
+        <!-- Navigation Buttons (shown only for multi-select steps) -->
+        <div class="quiz-navigation" id="quizNavigation" style="display: none;">
             <button class="nav-btn next-btn" id="nextBtn">
                 <span id="nextBtnText">Next</span>
             </button>

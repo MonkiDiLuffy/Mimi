@@ -1,15 +1,183 @@
-// Quiz State
+// Quiz state
 let currentStep = 1;
-const totalSteps = 6;
+const totalSteps = 27;
 const quizData = {};
+let selectedGender = null; // Track selected gender for dynamic image updates
+
+// Image mappings for male vs female
+const imageMap = {
+    // Step 3 - Physical Build
+    build: {
+        slender: {
+            male: '../assets/slim.webp',
+            female: '../assets/slim.png' // Different
+        },
+        medium: {
+            male: '../assets/athletic.webp',
+            female: '../assets/mid.png' // Different
+        },
+        stocky: {
+            male: '../assets/belly.webp',
+            female: '../assets/heavier.png' // Different
+        },
+        obese: {
+            male: '../assets/overweight.webp',
+            female: '../assets/overweight.png' // Different
+        }
+    },
+    // Step 4 - Dream Body
+    dreamBody: {
+        'few-sizes-smaller': {
+            male: '../assets/slim.webp',
+            female: '../assets/thin (1).png' // Different
+        },
+        athletic: {
+            male: '../assets/athletic.webp',
+            female: '../assets/toned.png' // Different
+        },
+        shredded: {
+            male: '../assets/shredded.webp',
+            female: '../assets/curvy.png' // Different for female
+        },
+        swole: {
+            male: '../assets/swole.webp',
+            female: '../assets/sizes.png' // Different for female
+        }
+    },
+    // Step 5 - Target Zones
+    targetZones: {
+        arms: {
+            male: '../assets/arms.webp',
+            // female: '../assets/arms.webp'
+        },
+        pecs: {
+            male: '../assets/pecs.webp',
+            female: '../assets/perkyBreasts.png' // Different for female
+        },
+        belly: {
+            male: '../assets/belly.webp',
+            female: '../assets/flatBelly.png' // Different for female
+        },
+        legs: {
+            male: '../assets/legs.webp',
+            female: '../assets/tonedLegs.png' // Different for female
+        },
+        back: {
+            male: '../assets/back.webp',
+            female: '../assets/tonedButt.png' // Different
+        }
+    },
+    // Step 6 - Best Shape (illustration)
+    bestShape: {
+        male: '../assets/ideal-time.png',
+        female: '../assets/illustration_step_ideal_time.png' // Different
+    },
+    // Step 12 - Workout Frequency (illustration)
+    workoutFrequency: {
+        male: '../assets/social-MALE.webp',
+        female: '../assets/social-FEMALE.webp' // Different
+    }
+};
+
+// Text mappings for male vs female
+const textMap = {
+    // Step 3 - Physical Build
+    build: {
+        slender: {
+            male: 'Slender',
+            female: 'Slim'
+        },
+        medium: {
+            male: 'Medium build',
+            female: 'Mid-sized'
+        },
+        stocky: {
+            male: 'Stocky',
+            female: 'On the heavier side'
+        },
+        obese: {
+            male: 'Obese',
+            female: 'Overweight'
+        }
+    },
+    // Step 4 - Dream Body
+    dreamBody: {
+        'few-sizes-smaller': {
+            male: 'A few sizes smaller',
+            female: 'Thin'
+        },
+        athletic: {
+            male: 'Athletic',
+            female: 'Toned'
+        },
+        shredded: {
+            male: 'Shredded',
+            female: 'Curvy'
+        },
+        swole: {
+            male: 'Swole',
+            female: 'Just a few sizes smaller'
+        }
+    },
+    // Step 5 - Target Zones
+    targetZones: {
+        arms: {
+            male: 'Arms',
+            female: 'Arms'
+        },
+        pecs: {
+            male: 'Pecs',
+            female: 'Chest'
+        },
+        belly: {
+            male: 'Belly',
+            female: 'Belly'
+        },
+        legs: {
+            male: 'Legs',
+            female: 'Legs'
+        },
+        back: {
+            male: 'Back',
+            female: 'Butt'
+        }
+    }
+};
+
+// Visibility configuration - which options to show for each gender
+const visibilityMap = {
+    // Step 3 - Physical Build (show all for both genders)
+    build: {
+        slender: ['male', 'female'],
+        medium: ['male', 'female'],
+        stocky: ['male', 'female'],
+        obese: ['male', 'female']
+    },
+    // Step 4 - Dream Body (show all for both genders)
+    dreamBody: {
+        'few-sizes-smaller': ['male', 'female'],
+        athletic: ['male', 'female'],
+        shredded: ['male', 'female'],
+        swole: ['male', 'female']
+    },
+    // Step 5 - Target Zones (different options for each gender)
+    targetZones: {
+        arms: ['male'], // Only show for males
+        pecs: ['male', 'female'], // Show for both
+        belly: ['male', 'female'], // Show for both
+        legs: ['male', 'female'], // Show for both
+        back: ['male', 'female'] // Show for both
+    }
+};
 
 // DOM Elements
 const progressFill = document.getElementById('progressFill');
 const currentStepSpan = document.getElementById('currentStep');
 const totalStepsSpan = document.getElementById('totalSteps');
-const backBtn = document.getElementById('backBtn');
+const backChevronBtn = document.getElementById('backChevronBtn');
 const nextBtn = document.getElementById('nextBtn');
 const nextBtnText = document.getElementById('nextBtnText');
+const quizNavigation = document.getElementById('quizNavigation');
 const quizSteps = document.querySelectorAll('.quiz-step');
 const sidebarMenu = document.getElementById('sidebarMenu');
 const sidebarOverlay = document.getElementById('sidebarOverlay');
@@ -18,46 +186,72 @@ const navMenuBtn = document.querySelector('.nav-menu-btn');
 
 // Initialize
 function init() {
+    console.log('Initializing quiz...');
     updateUI();
     attachEventListeners();
-    
-    // Initially disable next button on step 1
-    if (currentStep === 1) {
-        nextBtn.disabled = true;
-    }
-    
+    console.log('Quiz initialization complete');
 }
 
 // Update UI based on current step
 function updateUI() {
-    // Update progress bar
-    const progress = (currentStep / totalSteps) * 100;
-    progressFill.style.width = `${progress}%`;
+    // Check if we're on an intermediate page (step 6.5, 12.5, 16.5, or 21.5)
+    const activeStep = document.querySelector('.quiz-step.active');
+    const isIntermediatePage = activeStep && (activeStep.dataset.step === '6.5' || activeStep.dataset.step === '12.5' || activeStep.dataset.step === '16.5' || activeStep.dataset.step === '21.5');
     
-    // Update step counter
-    currentStepSpan.textContent = currentStep;
-    totalStepsSpan.textContent = totalSteps;
+    // Hide step counter for intermediate pages
+    const stepCounter = document.querySelector('.step-counter');
+    if (stepCounter) {
+        stepCounter.style.opacity = isIntermediatePage ? '0' : '1';
+    }
     
-    // Update quiz steps visibility
-    quizSteps.forEach((step, index) => {
-        if (index + 1 === currentStep) {
+    // Update progress bar (if it exists)
+    if (progressFill) {
+        const progress = (currentStep / totalSteps) * 100;
+        progressFill.style.width = `${progress}%`;
+    }
+    
+    // Update step counter (if it exists)
+    if (currentStepSpan) currentStepSpan.textContent = currentStep;
+    if (totalStepsSpan) totalStepsSpan.textContent = totalSteps;
+    
+    // Update quiz steps visibility using data-step attribute
+    quizSteps.forEach((step) => {
+        const stepNumber = parseFloat(step.dataset.step);
+        if (stepNumber === currentStep) {
             step.classList.add('active');
+            step.style.display = 'block';
         } else {
             step.classList.remove('active');
+            step.style.display = 'none';
         }
     });
     
-    // Update navigation buttons
-    backBtn.disabled = currentStep === 1;
+    // Show/hide back chevron button (disabled on step 1, enabled on intermediate pages)
+    if (backChevronBtn) {
+        backChevronBtn.disabled = currentStep === 1;
+    }
     
-    // Update next button state based on validation
-    nextBtn.disabled = !validateCurrentStep();
+    // Show/hide bottom navigation based on step type
+    const isMultiSelectStep = currentStep === 5 || currentStep === 11; // Step 5 (target zones) and Step 11 (unhealthy habits) are multi-select
+    if (quizNavigation) {
+        quizNavigation.style.display = isMultiSelectStep ? 'flex' : 'none';
+    }
     
-    // Update next button text
-    if (currentStep === totalSteps) {
-        nextBtnText.textContent = 'Complete';
-    } else {
-        nextBtnText.textContent = 'Next';
+    // Update next button state based on validation (if it exists)
+    if (nextBtn) nextBtn.disabled = !validateCurrentStep();
+    
+    // Update next button text (if it exists)
+    if (nextBtnText) {
+        if (currentStep === totalSteps) {
+            nextBtnText.textContent = 'Complete';
+        } else {
+            nextBtnText.textContent = 'Next step';
+        }
+    }
+    
+    // Ensure images are updated for selected gender when navigating
+    if (selectedGender) {
+        updateImagesForGender(selectedGender);
     }
     
     // Scroll to top
@@ -66,6 +260,30 @@ function updateUI() {
 
 // Navigate to next step
 function goToNextStep() {
+    // Special handling: After step 6, show intermediate page (6.5) before step 7
+    if (currentStep === 6) {
+        showIntermediatePage();
+        return;
+    }
+    
+    // Special handling: After step 12, show intermediate page (12.5) before step 13
+    if (currentStep === 12) {
+        showWorkoutMotivationPage();
+        return;
+    }
+    
+    // Special handling: After step 16, show intermediate page (16.5) before step 17
+    if (currentStep === 16) {
+        showHealthCoachesPage();
+        return;
+    }
+    
+    // Special handling: After step 21, show Keto Celebrities page (21.5) before step 22
+    if (currentStep === 21) {
+        showKetoCelebsPage();
+        return;
+    }
+    
     if (currentStep < totalSteps) {
         currentStep++;
         updateUI();
@@ -78,17 +296,204 @@ function goToNextStep() {
 
 // Navigate to previous step
 function goToPreviousStep() {
+    // Handle going back from intermediate pages
+    if (currentStep === 6.5) {
+        // From intermediate page, go back to step 6
+        currentStep = 6;
+        updateUI();
+        return;
+    }
+    
+    if (currentStep === 12.5) {
+        // From workout motivation page, go back to step 12
+        currentStep = 12;
+        updateUI();
+        return;
+    }
+    
+    if (currentStep === 16.5) {
+        // From health coaches page, go back to step 16
+        currentStep = 16;
+        updateUI();
+        return;
+    }
+    
+    if (currentStep === 21.5) {
+        // From Keto Celebrities page, go back to step 21
+        currentStep = 21;
+        updateUI();
+        return;
+    }
+    
+    // Handle going back from regular steps to intermediate pages
+    if (currentStep === 7) {
+        // From step 7, go back to intermediate page 6.5
+        currentStep = 6.5;
+        updateUI();
+        return;
+    }
+    
+    if (currentStep === 13) {
+        // From step 13, go back to workout motivation page 12.5
+        currentStep = 12.5;
+        updateUI();
+        return;
+    }
+    
+    if (currentStep === 17) {
+        // From step 17, go back to health coaches page 16.5
+        currentStep = 16.5;
+        updateUI();
+        return;
+    }
+    
+    if (currentStep === 22) {
+        // From step 22, go back to Keto Celebrities page 21.5
+        currentStep = 21.5;
+        updateUI();
+        return;
+    }
+    
+    // Regular navigation
     if (currentStep > 1) {
         currentStep--;
         updateUI();
     }
 }
 
+// Show intermediate keto info page
+function showIntermediatePage() {
+    // Set current step to intermediate page
+    currentStep = 6.5;
+    
+    // Update UI to show the intermediate page
+    updateUI();
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Hide intermediate page and go to step 7
+function hideIntermediatePage() {
+    // Go back to step 6
+    currentStep = 6;
+    updateUI();
+}
+
+// Continue from intermediate page to step 7
+function continueFromIntermediatePage() {
+    // Go to step 7
+    currentStep = 7;
+    updateUI();
+}
+
+// Show intermediate workout motivation page
+function showWorkoutMotivationPage() {
+    // Set current step to intermediate page
+    currentStep = 12.5;
+    
+    // Update UI to show the intermediate page
+    updateUI();
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Hide workout motivation page and go back to step 12
+function hideWorkoutMotivationPage() {
+    // Go back to step 12
+    currentStep = 12;
+    updateUI();
+}
+
+// Continue from workout motivation page to step 13
+function continueFromWorkoutMotivationPage() {
+    // Go to step 13
+    currentStep = 13;
+    updateUI();
+}
+
+// Show health coaches intermediate page
+function showHealthCoachesPage() {
+    // Set current step to intermediate page
+    currentStep = 16.5;
+    
+    // Update UI to show the intermediate page
+    updateUI();
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Hide health coaches page and return to step 16
+function hideHealthCoachesPage() {
+    // Return to step 16
+    currentStep = 16;
+    updateUI();
+}
+
+// Continue from health coaches page to step 17
+function continueFromHealthCoachesPage() {
+    // Go to step 17
+    currentStep = 17;
+    updateUI();
+}
+
+// Show Keto Celebrities intermediate page
+function showKetoCelebsPage() {
+    // Set current step to intermediate page
+    currentStep = 21.5;
+    
+    // Update UI to show the intermediate page
+    updateUI();
+    
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Hide Keto Celebrities page and return to step 21
+function hideKetoCelebsPage() {
+    // Return to step 21
+    currentStep = 21;
+    updateUI();
+}
+
+// Continue from Keto Celebrities page (21.5 -> 22)
+function continueFromKetoCelebsPage() {
+    // Go to step 22
+    currentStep = 22;
+    updateUI();
+}
+
 // Attach event listeners
 function attachEventListeners() {
-    // Navigation buttons
-    nextBtn.addEventListener('click', goToNextStep);
-    backBtn.addEventListener('click', goToPreviousStep);
+    // Navigation buttons (if they exist)
+    if (nextBtn) nextBtn.addEventListener('click', goToNextStep);
+    if (backChevronBtn) backChevronBtn.addEventListener('click', goToPreviousStep);
+    
+    // Intermediate page continue button
+    const ketoContinueBtn = document.getElementById('ketoContinueBtn');
+    if (ketoContinueBtn) {
+        ketoContinueBtn.addEventListener('click', continueFromIntermediatePage);
+    }
+    
+    // Workout motivation page continue button
+    const workoutMotivationContinueBtn = document.getElementById('workoutMotivationContinueBtn');
+    if (workoutMotivationContinueBtn) {
+        workoutMotivationContinueBtn.addEventListener('click', continueFromWorkoutMotivationPage);
+    }
+    
+    // Health coaches page continue button
+    const healthCoachesContinueBtn = document.getElementById('healthCoachesContinueBtn');
+    if (healthCoachesContinueBtn) {
+        healthCoachesContinueBtn.addEventListener('click', continueFromHealthCoachesPage);
+    }
+    
+    // Keto celebrities page continue button
+    const ketoCelebsContinueBtn = document.getElementById('ketoCelebsContinueBtn');
+    if (ketoCelebsContinueBtn) {
+        ketoCelebsContinueBtn.addEventListener('click', continueFromKetoCelebsPage);
+    }
     
     // Step 1 - Gender selection
     initGenderSelection();
@@ -108,15 +513,82 @@ function attachEventListeners() {
     // Step 6 - Best shape time period selection
     initBestShapeSelection();
     
-    // Sidebar menu
-    navMenuBtn.addEventListener('click', () => {
-        sidebarMenu.classList.add('active');
-        sidebarOverlay.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    });
+    // Step 7 - Keto knowledge selection
+    initKetoKnowledgeSelection();
     
-    sidebarClose.addEventListener('click', closeSidebar);
-    sidebarOverlay.addEventListener('click', closeSidebar);
+    // Step 8 - Typical day selection
+    initTypicalDaySelection();
+    
+    // Step 9 - Sleep hours selection
+    initSleepHoursSelection();
+    
+    // Step 10 - Water intake selection
+    initWaterIntakeSelection();
+    
+    // Step 11 - Unhealthy habits selection
+    initUnhealthyHabitsSelection();
+    
+    // Step 12 - Workout frequency selection
+    initWorkoutFrequencySelection();
+    
+    // Step 13 - Dietary restrictions selection
+    initDietaryRestrictionsSelection();
+    
+    // Step 14 - Cooking preference selection
+    initCookingPreferenceSelection();
+    
+    // Step 15 - Meals per day selection
+    initMealsPerDaySelection();
+    
+    // Step 16 - Keto dish rating
+    initKetoDishRating();
+    
+    // Step 17 - Vegetables selection
+    initVegetablesSelection();
+    
+    // Step 18 - Cereals selection
+    initCerealsSelection();
+    
+    // Step 19 - Meat and fish selection
+    initMeatSelection();
+    
+    // Step 20 - Fish and seafood selection
+    initSeafoodSelection();
+    
+    // Step 21 - Dairy products selection
+    initDairySelection();
+    
+    // Step 22 - Fruits and berries selection
+    initFruitsSelection();
+    
+    // Step 23 - Height input
+    initHeightSelection();
+    
+    // Step 24 - Current weight input
+    initWeightSelection();
+    
+    // Step 25 - Age input
+    initAgeSelection();
+    
+    // Step 26 - Important events selection
+    initEventsSelection();
+    
+    // Step 27 - Event date input
+    initEventDateSelection();
+    
+    // Sidebar menu (if elements exist)
+    if (navMenuBtn) {
+        navMenuBtn.addEventListener('click', () => {
+            if (sidebarMenu && sidebarOverlay) {
+                sidebarMenu.classList.add('active');
+                sidebarOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+        });
+    }
+    
+    if (sidebarClose) sidebarClose.addEventListener('click', closeSidebar);
+    if (sidebarOverlay) sidebarOverlay.addEventListener('click', closeSidebar);
     
     // Keyboard navigation
     document.addEventListener('keydown', (e) => {
@@ -124,7 +596,7 @@ function attachEventListeners() {
             goToNextStep();
         } else if (e.key === 'ArrowLeft' && currentStep > 1) {
             goToPreviousStep();
-        } else if (e.key === 'Escape' && sidebarMenu.classList.contains('active')) {
+        } else if (e.key === 'Escape' && sidebarMenu && sidebarMenu.classList.contains('active')) {
             closeSidebar();
         }
     });
@@ -132,19 +604,114 @@ function attachEventListeners() {
 
 // Close sidebar
 function closeSidebar() {
-    sidebarMenu.classList.remove('active');
-    sidebarOverlay.classList.remove('active');
+    if (sidebarMenu) sidebarMenu.classList.remove('active');
+    if (sidebarOverlay) sidebarOverlay.classList.remove('active');
     document.body.style.overflow = '';
+}
+
+// Update images based on selected gender
+function updateImagesForGender(gender) {
+    if (!gender) return;
+    
+    console.log('Updating images, text, and visibility for gender:', gender);
+    
+    // Update Step 3 - Build images, text, and visibility
+    document.querySelectorAll('.build-option').forEach(option => {
+        const buildValue = option.dataset.value;
+        const img = option.querySelector('.build-image img');
+        const textElement = option.querySelector('.build-text');
+        
+        // Check if this option should be visible for this gender
+        const shouldShow = visibilityMap.build[buildValue] && 
+                          visibilityMap.build[buildValue].includes(gender);
+        
+        if (shouldShow) {
+            option.style.display = '';
+            if (img && imageMap.build[buildValue] && imageMap.build[buildValue][gender]) {
+                img.src = imageMap.build[buildValue][gender];
+            }
+            if (textElement && textMap.build[buildValue] && textMap.build[buildValue][gender]) {
+                textElement.textContent = textMap.build[buildValue][gender];
+            }
+        } else {
+            option.style.display = 'none';
+        }
+    });
+    
+    // Update Step 4 - Dream Body images, text, and visibility
+    document.querySelectorAll('.dream-body-option').forEach(option => {
+        const dreamBodyValue = option.dataset.value;
+        const img = option.querySelector('.dream-body-image img');
+        const textElement = option.querySelector('.dream-body-text');
+        
+        // Check if this option should be visible for this gender
+        const shouldShow = visibilityMap.dreamBody[dreamBodyValue] && 
+                          visibilityMap.dreamBody[dreamBodyValue].includes(gender);
+        
+        if (shouldShow) {
+            option.style.display = '';
+            if (img && imageMap.dreamBody[dreamBodyValue] && imageMap.dreamBody[dreamBodyValue][gender]) {
+                img.src = imageMap.dreamBody[dreamBodyValue][gender];
+            }
+            if (textElement && textMap.dreamBody[dreamBodyValue] && textMap.dreamBody[dreamBodyValue][gender]) {
+                textElement.textContent = textMap.dreamBody[dreamBodyValue][gender];
+            }
+        } else {
+            option.style.display = 'none';
+        }
+    });
+    
+    // Update Step 5 - Target Zones images, text, and visibility
+    document.querySelectorAll('.target-zone-option').forEach(option => {
+        const zoneValue = option.dataset.value;
+        const img = option.querySelector('.target-zone-image img');
+        const textElement = option.querySelector('.target-zone-text');
+        
+        // Check if this option should be visible for this gender
+        const shouldShow = visibilityMap.targetZones[zoneValue] && 
+                          visibilityMap.targetZones[zoneValue].includes(gender);
+        
+        if (shouldShow) {
+            option.style.display = '';
+            if (img && imageMap.targetZones[zoneValue] && imageMap.targetZones[zoneValue][gender]) {
+                img.src = imageMap.targetZones[zoneValue][gender];
+            }
+            if (textElement && textMap.targetZones[zoneValue] && textMap.targetZones[zoneValue][gender]) {
+                textElement.textContent = textMap.targetZones[zoneValue][gender];
+            }
+        } else {
+            option.style.display = 'none';
+            // Deselect if hidden
+            option.classList.remove('selected');
+            const checkbox = option.querySelector('.target-zone-checkbox');
+            if (checkbox) checkbox.checked = false;
+        }
+    });
+    
+    // Update Step 6 - Best Shape illustration
+    const bestShapeImg = document.querySelector('.best-shape-image img');
+    if (bestShapeImg && imageMap.bestShape[gender]) {
+        bestShapeImg.src = imageMap.bestShape[gender];
+    }
+    
+    // Update Step 12 - Workout Frequency illustration
+    const workoutFrequencyImg = document.querySelector('.workout-frequency-image img');
+    if (workoutFrequencyImg && imageMap.workoutFrequency[gender]) {
+        workoutFrequencyImg.src = imageMap.workoutFrequency[gender];
+    }
 }
 
 // Step 1 - Gender Selection
 function initGenderSelection() {
+    console.log('Initializing gender selection...');
     const genderOptions = document.querySelectorAll('.gender-option');
+    console.log('Found gender options:', genderOptions.length);
     
     genderOptions.forEach(option => {
-        const button = option.querySelector('.gender-btn');
-        
-        const handleSelection = () => {
+        const handleSelection = (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            
             // Remove selection from all options
             genderOptions.forEach(opt => opt.classList.remove('selected'));
             
@@ -154,20 +721,27 @@ function initGenderSelection() {
             // Store the selection
             const gender = option.dataset.value;
             quizData.gender = gender;
-            
-            // Enable next button if it was disabled
-            nextBtn.disabled = false;
+            selectedGender = gender; // Store in global variable
             
             console.log('Gender selected:', gender);
+            
+            // Update all images based on selected gender
+            updateImagesForGender(gender);
+            
+            // Auto-advance to next step after a short delay
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
         };
         
-        // Handle both button click and label click
-        button.addEventListener('click', handleSelection);
-        option.addEventListener('click', (e) => {
-            if (e.target === option || e.target === option.querySelector('.gender-image') || e.target === option.querySelector('img')) {
-                handleSelection();
-            }
-        });
+        // Handle click on the entire option
+        option.addEventListener('click', handleSelection);
+        
+        // Also handle click on the button specifically
+        const button = option.querySelector('.gender-btn');
+        if (button) {
+            button.addEventListener('click', handleSelection);
+        }
     });
 }
 
@@ -187,10 +761,12 @@ function initGoalSelection() {
             const goal = option.dataset.value;
             quizData.goal = goal;
             
-            // Enable next button
-            nextBtn.disabled = false;
-            
             console.log('Goal selected:', goal);
+            
+            // Auto-advance to next step after a short delay
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
         };
         
         // Handle click on the entire option
@@ -214,10 +790,12 @@ function initBuildSelection() {
             const build = option.dataset.value;
             quizData.build = build;
             
-            // Enable next button
-            nextBtn.disabled = false;
-            
             console.log('Build selected:', build);
+            
+            // Auto-advance to next step after a short delay
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
         };
         
         // Handle click on the entire option
@@ -241,10 +819,12 @@ function initDreamBodySelection() {
             const dreamBody = option.dataset.value;
             quizData.dreamBody = dreamBody;
             
-            // Enable next button
-            nextBtn.disabled = false;
-            
             console.log('Dream body selected:', dreamBody);
+            
+            // Auto-advance to next step after a short delay
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
         };
         
         // Handle click on the entire option
@@ -318,15 +898,1303 @@ function initBestShapeSelection() {
             const timePeriod = option.dataset.value;
             quizData.bestShapeTimePeriod = timePeriod;
             
-            // Enable next button
-            nextBtn.disabled = false;
-            
             console.log('Best shape time period selected:', timePeriod);
+            
+            // Auto-advance to next step after a short delay (or complete quiz if last step)
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
         };
         
         // Handle click on the entire option
         option.addEventListener('click', handleSelection);
     });
+}
+
+// Step 7 - Keto Knowledge Selection
+function initKetoKnowledgeSelection() {
+    const ketoKnowledgeOptions = document.querySelectorAll('.keto-knowledge-option');
+    
+    ketoKnowledgeOptions.forEach(option => {
+        const handleSelection = () => {
+            // Remove selection from all options
+            ketoKnowledgeOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to current option
+            option.classList.add('selected');
+            
+            // Store the selection
+            const ketoKnowledge = option.dataset.value;
+            quizData.ketoKnowledge = ketoKnowledge;
+            
+            console.log('Keto knowledge selected:', ketoKnowledge);
+            
+            // Auto-advance to next step after a short delay (or complete quiz if last step)
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
+        };
+        
+        // Handle click on the entire option
+        option.addEventListener('click', handleSelection);
+    });
+}
+
+// Step 8 - Typical Day Selection
+function initTypicalDaySelection() {
+    const typicalDayOptions = document.querySelectorAll('.typical-day-option');
+    
+    typicalDayOptions.forEach(option => {
+        const handleSelection = () => {
+            // Remove selection from all options
+            typicalDayOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to current option
+            option.classList.add('selected');
+            
+            // Store the selection
+            const typicalDay = option.dataset.value;
+            quizData.typicalDay = typicalDay;
+            
+            console.log('Typical day selected:', typicalDay);
+            
+            // Auto-advance to next step after a short delay (or complete quiz if last step)
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
+        };
+        
+        // Handle click on the entire option
+        option.addEventListener('click', handleSelection);
+    });
+}
+
+// Step 9 - Sleep Hours Selection
+function initSleepHoursSelection() {
+    const sleepHoursOptions = document.querySelectorAll('.sleep-hours-option');
+    
+    sleepHoursOptions.forEach(option => {
+        const handleSelection = () => {
+            // Remove selection from all options
+            sleepHoursOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to current option
+            option.classList.add('selected');
+            
+            // Store the selection
+            const sleepHours = option.dataset.value;
+            quizData.sleepHours = sleepHours;
+            
+            console.log('Sleep hours selected:', sleepHours);
+            
+            // Auto-advance to next step after a short delay (or complete quiz if last step)
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
+        };
+        
+        // Handle click on the entire option
+        option.addEventListener('click', handleSelection);
+    });
+}
+
+// Step 10 - Water Intake Selection
+function initWaterIntakeSelection() {
+    const waterIntakeOptions = document.querySelectorAll('.water-intake-option');
+    const waterContinueBtn = document.getElementById('waterContinueBtn');
+    
+    waterIntakeOptions.forEach(option => {
+        const handleSelection = () => {
+            // Remove selection from all options
+            waterIntakeOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to current option
+            option.classList.add('selected');
+            
+            // Store the selection
+            const waterIntake = option.dataset.value;
+            quizData.waterIntake = waterIntake;
+            
+            console.log('Water intake selected:', waterIntake);
+            
+            // Show the continue button
+            if (waterContinueBtn) {
+                waterContinueBtn.style.display = 'block';
+            }
+        };
+        
+        // Handle click on the entire option
+        option.addEventListener('click', handleSelection);
+    });
+    
+    // Add event listener to continue button
+    if (waterContinueBtn) {
+        waterContinueBtn.addEventListener('click', () => {
+            if (quizData.waterIntake) {
+                setTimeout(() => {
+                    goToNextStep();
+                }, 300);
+            }
+        });
+    }
+}
+
+// Step 11 - Unhealthy Habits Selection
+function initUnhealthyHabitsSelection() {
+    const habitOptions = document.querySelectorAll('.unhealthy-habit-option');
+    const noneOption = document.querySelector('.unhealthy-habit-option[data-value="none"]');
+    
+    // Initialize empty array for habits
+    if (!quizData.unhealthyHabits) {
+        quizData.unhealthyHabits = [];
+    }
+    
+    // Use setTimeout to ensure DOM is ready
+    setTimeout(() => {
+        habitOptions.forEach(option => {
+            const habitValue = option.dataset.value;
+            const checkbox = option.querySelector('.unhealthy-habit-checkbox');
+            
+            option.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Toggle selection
+                const isCurrentlySelected = option.classList.contains('selected');
+                
+                if (habitValue === 'none') {
+                    // If "none" is clicked, deselect all others
+                    if (!isCurrentlySelected) {
+                        habitOptions.forEach(opt => {
+                            opt.classList.remove('selected');
+                            const cb = opt.querySelector('.unhealthy-habit-checkbox');
+                            if (cb) cb.checked = false;
+                        });
+                        option.classList.add('selected');
+                        if (checkbox) checkbox.checked = true;
+                        quizData.unhealthyHabits = ['none'];
+                    } else {
+                        option.classList.remove('selected');
+                        if (checkbox) checkbox.checked = false;
+                        quizData.unhealthyHabits = [];
+                    }
+                } else {
+                    // If any other option is clicked, deselect "none"
+                    if (noneOption) {
+                        noneOption.classList.remove('selected');
+                        const noneCheckbox = noneOption.querySelector('.unhealthy-habit-checkbox');
+                        if (noneCheckbox) noneCheckbox.checked = false;
+                    }
+                    
+                    // Toggle this option
+                    if (isCurrentlySelected) {
+                        option.classList.remove('selected');
+                        if (checkbox) checkbox.checked = false;
+                        quizData.unhealthyHabits = quizData.unhealthyHabits.filter(h => h !== habitValue);
+                    } else {
+                        option.classList.add('selected');
+                        if (checkbox) checkbox.checked = true;
+                        // Remove 'none' if it exists
+                        quizData.unhealthyHabits = quizData.unhealthyHabits.filter(h => h !== 'none');
+                        quizData.unhealthyHabits.push(habitValue);
+                    }
+                }
+                
+                console.log('Unhealthy habits selected:', quizData.unhealthyHabits);
+                
+                // Update next button state
+                if (nextBtn) {
+                    nextBtn.disabled = quizData.unhealthyHabits.length === 0;
+                }
+            });
+        });
+    }, 100);
+}
+
+// Step 12 - Workout Frequency Selection
+function initWorkoutFrequencySelection() {
+    const workoutFrequencyOptions = document.querySelectorAll('.workout-frequency-option');
+    
+    workoutFrequencyOptions.forEach(option => {
+        const handleSelection = () => {
+            // Remove selection from all options
+            workoutFrequencyOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to current option
+            option.classList.add('selected');
+            
+            // Store the selection
+            const workoutFrequency = option.dataset.value;
+            quizData.workoutFrequency = workoutFrequency;
+            
+            console.log('Workout frequency selected:', workoutFrequency);
+            
+            // Auto-advance to next step after a short delay (or complete quiz if last step)
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
+        };
+        
+        // Handle click on the entire option
+        option.addEventListener('click', handleSelection);
+    });
+}
+
+// Step 13 - Dietary Restrictions Selection
+function initDietaryRestrictionsSelection() {
+    const dietaryOptions = document.querySelectorAll('.dietary-restriction-option');
+    const nextBtn = document.getElementById('dietaryNextBtn');
+    const noneOption = document.querySelector('.dietary-restriction-option[data-value="none"]');
+    
+    // Initialize array to store selections
+    if (!quizData.dietaryRestrictions) {
+        quizData.dietaryRestrictions = [];
+    }
+    
+    dietaryOptions.forEach(option => {
+        const checkbox = option.querySelector('.dietary-restriction-checkbox');
+        const value = option.dataset.value;
+        
+        option.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            if (value === 'none') {
+                // If "None" is clicked, unselect all others
+                dietaryOptions.forEach(opt => {
+                    if (opt !== noneOption) {
+                        opt.classList.remove('selected');
+                        opt.querySelector('.dietary-restriction-checkbox').checked = false;
+                    }
+                });
+                
+                // Toggle "None" option
+                const isSelected = noneOption.classList.toggle('selected');
+                checkbox.checked = isSelected;
+                
+                quizData.dietaryRestrictions = isSelected ? ['none'] : [];
+            } else {
+                // If any other option is clicked, unselect "None"
+                noneOption.classList.remove('selected');
+                noneOption.querySelector('.dietary-restriction-checkbox').checked = false;
+                
+                // Toggle current option
+                const isSelected = option.classList.toggle('selected');
+                checkbox.checked = isSelected;
+                
+                // Update selections array
+                if (isSelected) {
+                    if (!quizData.dietaryRestrictions.includes(value)) {
+                        quizData.dietaryRestrictions.push(value);
+                    }
+                } else {
+                    quizData.dietaryRestrictions = quizData.dietaryRestrictions.filter(h => h !== value);
+                }
+                
+                // Remove 'none' if it was there
+                quizData.dietaryRestrictions = quizData.dietaryRestrictions.filter(h => h !== 'none');
+            }
+            
+            console.log('Dietary restrictions:', quizData.dietaryRestrictions);
+            
+            // Enable/disable next button based on selection
+            if (nextBtn) {
+                if (quizData.dietaryRestrictions.length > 0) {
+                    nextBtn.classList.add('active');
+                    nextBtn.disabled = false;
+                } else {
+                    nextBtn.classList.remove('active');
+                    nextBtn.disabled = true;
+                }
+            }
+        });
+    });
+    
+    // Next button click handler
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (quizData.dietaryRestrictions.length > 0) {
+                goToNextStep();
+            }
+        });
+    }
+}
+
+// Step 14 - Cooking Preference Selection
+function initCookingPreferenceSelection() {
+    const cookingPreferenceOptions = document.querySelectorAll('.cooking-preference-option');
+    
+    cookingPreferenceOptions.forEach(option => {
+        const handleSelection = () => {
+            // Remove selection from all options
+            cookingPreferenceOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to current option
+            option.classList.add('selected');
+            
+            // Store the selection
+            const cookingPreference = option.dataset.value;
+            quizData.cookingPreference = cookingPreference;
+            
+            console.log('Cooking preference selected:', cookingPreference);
+            
+            // Auto-advance to next step after a short delay
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
+        };
+        
+        // Handle click on the entire option
+        option.addEventListener('click', handleSelection);
+    });
+}
+
+// Step 15 - Meals Per Day Selection
+function initMealsPerDaySelection() {
+    const mealsPerDayOptions = document.querySelectorAll('.meals-per-day-option');
+    
+    mealsPerDayOptions.forEach(option => {
+        const handleSelection = () => {
+            // Remove selection from all options
+            mealsPerDayOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selection to current option
+            option.classList.add('selected');
+            
+            // Store the selection
+            const mealsPerDay = option.dataset.value;
+            quizData.mealsPerDay = mealsPerDay;
+            
+            console.log('Meals per day selected:', mealsPerDay);
+            
+            // Auto-advance to next step after a short delay
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
+        };
+        
+        // Handle click on the entire option
+        option.addEventListener('click', handleSelection);
+    });
+}
+
+// Step 16 - Keto Dish Rating Selection
+function initKetoDishRating() {
+    const ratingButtons = document.querySelectorAll('.dish-rating-btn');
+    
+    ratingButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove selection from all buttons
+            ratingButtons.forEach(btn => btn.classList.remove('selected'));
+            
+            // Add selection to current button
+            button.classList.add('selected');
+            
+            // Store the selection
+            const rating = button.dataset.value;
+            quizData.dishRating = rating;
+            
+            console.log('Dish rating selected:', rating);
+            
+            // Auto-advance to next step after a short delay
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
+        });
+    });
+}
+
+// Step 17 - Vegetables Selection
+function initVegetablesSelection() {
+    const ketoToggle = document.getElementById('ketoToggle');
+    const vegetableOptions = document.querySelectorAll('.vegetable-option');
+    const nextBtn = document.getElementById('vegetablesNextBtn');
+    
+    // Initialize array to store selections
+    if (!quizData.vegetables) {
+        quizData.vegetables = [];
+    }
+    
+    // Handle keto toggle
+    if (ketoToggle) {
+        ketoToggle.addEventListener('change', (e) => {
+            const isKetoOn = e.target.checked;
+            quizData.isKetoMealPlan = isKetoOn;
+            
+            if (isKetoOn) {
+                // Auto-select all vegetables except onion and carrots
+                vegetableOptions.forEach(option => {
+                    const value = option.dataset.value;
+                    const isKeto = option.dataset.keto === 'true';
+                    const checkbox = option.querySelector('.vegetable-checkbox');
+                    
+                    if (isKeto) {
+                        // Select keto-friendly vegetables
+                        option.classList.add('selected');
+                        checkbox.checked = true;
+                        if (!quizData.vegetables.includes(value)) {
+                            quizData.vegetables.push(value);
+                        }
+                    } else {
+                        // Deselect non-keto vegetables (onion, carrots)
+                        option.classList.remove('selected');
+                        checkbox.checked = false;
+                        quizData.vegetables = quizData.vegetables.filter(v => v !== value);
+                    }
+                });
+            } else {
+                // Turn off keto mode - deselect all
+                vegetableOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    option.querySelector('.vegetable-checkbox').checked = false;
+                });
+                quizData.vegetables = [];
+            }
+            
+            // Update button state
+            updateVegetablesButton();
+            
+            console.log('Keto toggle:', isKetoOn, 'Vegetables:', quizData.vegetables);
+        });
+    }
+    
+    // Handle individual vegetable selection
+    vegetableOptions.forEach(option => {
+        const checkbox = option.querySelector('.vegetable-checkbox');
+        const value = option.dataset.value;
+        
+        option.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Toggle selection
+            const isSelected = option.classList.toggle('selected');
+            checkbox.checked = isSelected;
+            
+            // Update selections array
+            if (isSelected) {
+                if (!quizData.vegetables.includes(value)) {
+                    quizData.vegetables.push(value);
+                }
+            } else {
+                quizData.vegetables = quizData.vegetables.filter(v => v !== value);
+            }
+            
+            console.log('Vegetables selected:', quizData.vegetables);
+            
+            // Update button state
+            updateVegetablesButton();
+        });
+    });
+    
+    // Update button state function
+    function updateVegetablesButton() {
+        if (nextBtn) {
+            if (quizData.vegetables.length > 0) {
+                nextBtn.classList.add('active');
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.classList.remove('active');
+                nextBtn.disabled = true;
+            }
+        }
+    }
+    
+    // Next button click handler
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (quizData.vegetables.length > 0) {
+                goToNextStep();
+            }
+        });
+    }
+}
+
+// Step 18 - Cereals Selection
+function initCerealsSelection() {
+    const ketoToggle = document.getElementById('ketoToggleCereals');
+    const cerealOptions = document.querySelectorAll('.cereal-option');
+    const nextBtn = document.getElementById('cerealsNextBtn');
+    
+    // Initialize array to store selections
+    if (!quizData.cereals) {
+        quizData.cereals = [];
+    }
+    
+    // Handle keto toggle
+    if (ketoToggle) {
+        ketoToggle.addEventListener('change', (e) => {
+            const isKetoOn = e.target.checked;
+            
+            if (isKetoOn) {
+                // Auto-select keto-friendly cereals (couscous and quinoa)
+                cerealOptions.forEach(option => {
+                    const value = option.dataset.value;
+                    const isKeto = option.dataset.keto === 'true';
+                    const checkbox = option.querySelector('.cereal-checkbox');
+                    
+                    if (isKeto) {
+                        // Select keto-friendly cereals
+                        option.classList.add('selected');
+                        checkbox.checked = true;
+                        if (!quizData.cereals.includes(value)) {
+                            quizData.cereals.push(value);
+                        }
+                    } else {
+                        // Deselect non-keto cereals
+                        option.classList.remove('selected');
+                        checkbox.checked = false;
+                        quizData.cereals = quizData.cereals.filter(c => c !== value);
+                    }
+                });
+            } else {
+                // Turn off keto mode - deselect all
+                cerealOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    option.querySelector('.cereal-checkbox').checked = false;
+                });
+                quizData.cereals = [];
+            }
+            
+            // Update button state
+            updateCerealsButton();
+            
+            console.log('Keto toggle (cereals):', isKetoOn, 'Cereals:', quizData.cereals);
+        });
+    }
+    
+    // Handle individual cereal selection
+    cerealOptions.forEach(option => {
+        const checkbox = option.querySelector('.cereal-checkbox');
+        const value = option.dataset.value;
+        
+        option.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Toggle selection
+            const isSelected = option.classList.toggle('selected');
+            checkbox.checked = isSelected;
+            
+            // Update selections array
+            if (isSelected) {
+                if (!quizData.cereals.includes(value)) {
+                    quizData.cereals.push(value);
+                }
+            } else {
+                quizData.cereals = quizData.cereals.filter(c => c !== value);
+            }
+            
+            console.log('Cereals selected:', quizData.cereals);
+            
+            // Update button state
+            updateCerealsButton();
+        });
+    });
+    
+    // Update button state function
+    function updateCerealsButton() {
+        if (nextBtn) {
+            if (quizData.cereals.length > 0) {
+                nextBtn.classList.add('active');
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.classList.remove('active');
+                nextBtn.disabled = true;
+            }
+        }
+    }
+    
+    // Next button click handler
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (quizData.cereals.length > 0) {
+                goToNextStep();
+            }
+        });
+    }
+}
+
+// Step 19 - Meat and Fish Selection
+function initMeatSelection() {
+    const ketoToggle = document.getElementById('ketoToggleMeat');
+    const meatOptions = document.querySelectorAll('.meat-option');
+    const nextBtn = document.getElementById('meatNextBtn');
+    
+    // Initialize array to store selections
+    if (!quizData.meat) {
+        quizData.meat = [];
+    }
+    
+    // Handle keto toggle
+    if (ketoToggle) {
+        ketoToggle.addEventListener('change', (e) => {
+            const isKetoOn = e.target.checked;
+            
+            if (isKetoOn) {
+                // Auto-select all meat options (all are keto-friendly)
+                meatOptions.forEach(option => {
+                    const value = option.dataset.value;
+                    const checkbox = option.querySelector('.meat-checkbox');
+                    
+                    // Select all meat options
+                    option.classList.add('selected');
+                    checkbox.checked = true;
+                    if (!quizData.meat.includes(value)) {
+                        quizData.meat.push(value);
+                    }
+                });
+            } else {
+                // Turn off keto mode - deselect all
+                meatOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    option.querySelector('.meat-checkbox').checked = false;
+                });
+                quizData.meat = [];
+            }
+            
+            // Update button state
+            updateMeatButton();
+            
+            console.log('Keto toggle (meat):', isKetoOn, 'Meat:', quizData.meat);
+        });
+    }
+    
+    // Handle individual meat selection
+    meatOptions.forEach(option => {
+        const checkbox = option.querySelector('.meat-checkbox');
+        const value = option.dataset.value;
+        
+        option.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Toggle selection
+            const isSelected = option.classList.toggle('selected');
+            checkbox.checked = isSelected;
+            
+            // Update selections array
+            if (isSelected) {
+                if (!quizData.meat.includes(value)) {
+                    quizData.meat.push(value);
+                }
+            } else {
+                quizData.meat = quizData.meat.filter(m => m !== value);
+            }
+            
+            console.log('Meat selected:', quizData.meat);
+            
+            // Update button state
+            updateMeatButton();
+        });
+    });
+    
+    // Update button state function
+    function updateMeatButton() {
+        if (nextBtn) {
+            if (quizData.meat.length > 0) {
+                nextBtn.classList.add('active');
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.classList.remove('active');
+                nextBtn.disabled = true;
+            }
+        }
+    }
+    
+    // Next button click handler
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (quizData.meat.length > 0) {
+                goToNextStep();
+            }
+        });
+    }
+}
+
+// Step 20 - Fish and Seafood Selection
+function initSeafoodSelection() {
+    const ketoToggle = document.getElementById('ketoToggleSeafood');
+    const seafoodOptions = document.querySelectorAll('.seafood-option');
+    const nextBtn = document.getElementById('seafoodNextBtn');
+    
+    // Initialize array to store selections
+    if (!quizData.seafood) {
+        quizData.seafood = [];
+    }
+    
+    // Handle keto toggle
+    if (ketoToggle) {
+        ketoToggle.addEventListener('change', (e) => {
+            const isKetoOn = e.target.checked;
+            
+            if (isKetoOn) {
+                // Auto-select keto-friendly seafood (seafood cocktails and shrimps)
+                seafoodOptions.forEach(option => {
+                    const value = option.dataset.value;
+                    const isKeto = option.dataset.keto === 'true';
+                    const checkbox = option.querySelector('.seafood-checkbox');
+                    
+                    if (isKeto) {
+                        // Select keto-friendly seafood
+                        option.classList.add('selected');
+                        checkbox.checked = true;
+                        if (!quizData.seafood.includes(value)) {
+                            quizData.seafood.push(value);
+                        }
+                    } else {
+                        // Deselect non-keto seafood
+                        option.classList.remove('selected');
+                        checkbox.checked = false;
+                        quizData.seafood = quizData.seafood.filter(s => s !== value);
+                    }
+                });
+            } else {
+                // Turn off keto mode - deselect all
+                seafoodOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    option.querySelector('.seafood-checkbox').checked = false;
+                });
+                quizData.seafood = [];
+            }
+            
+            // Update button state
+            updateSeafoodButton();
+            
+            console.log('Keto toggle (seafood):', isKetoOn, 'Seafood:', quizData.seafood);
+        });
+    }
+    
+    // Handle individual seafood selection
+    seafoodOptions.forEach(option => {
+        const checkbox = option.querySelector('.seafood-checkbox');
+        const value = option.dataset.value;
+        
+        option.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Toggle selection
+            const isSelected = option.classList.toggle('selected');
+            checkbox.checked = isSelected;
+            
+            // Update selections array
+            if (isSelected) {
+                if (!quizData.seafood.includes(value)) {
+                    quizData.seafood.push(value);
+                }
+            } else {
+                quizData.seafood = quizData.seafood.filter(s => s !== value);
+            }
+            
+            console.log('Seafood selected:', quizData.seafood);
+            
+            // Update button state
+            updateSeafoodButton();
+        });
+    });
+    
+    // Update button state function
+    function updateSeafoodButton() {
+        if (nextBtn) {
+            if (quizData.seafood.length > 0) {
+                nextBtn.classList.add('active');
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.classList.remove('active');
+                nextBtn.disabled = true;
+            }
+        }
+    }
+    
+    // Next button click handler
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (quizData.seafood.length > 0) {
+                goToNextStep();
+            }
+        });
+    }
+}
+
+// Step 21 - Dairy Products Selection
+function initDairySelection() {
+    const ketoToggle = document.getElementById('ketoToggleDairy');
+    const dairyOptions = document.querySelectorAll('.dairy-option');
+    const nextBtn = document.getElementById('dairyNextBtn');
+    
+    // Initialize array to store selections
+    if (!quizData.dairy) {
+        quizData.dairy = [];
+    }
+    
+    // Handle keto toggle
+    if (ketoToggle) {
+        ketoToggle.addEventListener('change', (e) => {
+            const isKetoOn = e.target.checked;
+            
+            if (isKetoOn) {
+                // Auto-select all dairy products (all are keto-friendly)
+                dairyOptions.forEach(option => {
+                    const value = option.dataset.value;
+                    const checkbox = option.querySelector('.dairy-checkbox');
+                    
+                    // Select all dairy options
+                    option.classList.add('selected');
+                    checkbox.checked = true;
+                    if (!quizData.dairy.includes(value)) {
+                        quizData.dairy.push(value);
+                    }
+                });
+            } else {
+                // Turn off keto mode - deselect all
+                dairyOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    option.querySelector('.dairy-checkbox').checked = false;
+                });
+                quizData.dairy = [];
+            }
+            
+            // Update button state
+            updateDairyButton();
+            
+            console.log('Keto toggle (dairy):', isKetoOn, 'Dairy:', quizData.dairy);
+        });
+    }
+    
+    // Handle individual dairy selection
+    dairyOptions.forEach(option => {
+        const checkbox = option.querySelector('.dairy-checkbox');
+        const value = option.dataset.value;
+        
+        option.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Toggle selection
+            const isSelected = option.classList.toggle('selected');
+            checkbox.checked = isSelected;
+            
+            // Update selections array
+            if (isSelected) {
+                if (!quizData.dairy.includes(value)) {
+                    quizData.dairy.push(value);
+                }
+            } else {
+                quizData.dairy = quizData.dairy.filter(d => d !== value);
+            }
+            
+            console.log('Dairy selected:', quizData.dairy);
+            
+            // Update button state
+            updateDairyButton();
+        });
+    });
+    
+    // Update button state function
+    function updateDairyButton() {
+        if (nextBtn) {
+            if (quizData.dairy.length > 0) {
+                nextBtn.classList.add('active');
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.classList.remove('active');
+                nextBtn.disabled = true;
+            }
+        }
+    }
+    
+    // Next button click handler
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (quizData.dairy.length > 0) {
+                goToNextStep();
+            }
+        });
+    }
+}
+
+// Initialize Fruits/Berries Selection (Step 22)
+function initFruitsSelection() {
+    const ketoToggle = document.getElementById('ketoToggle22');
+    const fruitOptions = document.querySelectorAll('.fruit-option');
+    const nextBtn = document.getElementById('fruitsNextBtn');
+    
+    // Initialize array to store selections
+    if (!quizData.fruits) {
+        quizData.fruits = [];
+    }
+    
+    // Handle keto toggle
+    if (ketoToggle) {
+        ketoToggle.addEventListener('change', (e) => {
+            const isKetoOn = e.target.checked;
+            
+            if (isKetoOn) {
+                // Auto-select only keto-friendly fruits (exclude bananas and mango)
+                fruitOptions.forEach(option => {
+                    const value = option.dataset.value;
+                    const isKeto = option.dataset.keto === 'true';
+                    const checkbox = option.querySelector('input[type="checkbox"]');
+                    
+                    if (isKeto) {
+                        option.classList.add('selected');
+                        checkbox.checked = true;
+                        if (!quizData.fruits.includes(value)) {
+                            quizData.fruits.push(value);
+                        }
+                    } else {
+                        option.classList.remove('selected');
+                        checkbox.checked = false;
+                        quizData.fruits = quizData.fruits.filter(f => f !== value);
+                    }
+                });
+            } else {
+                // Turn off keto mode - deselect all
+                fruitOptions.forEach(option => {
+                    option.classList.remove('selected');
+                    option.querySelector('input[type="checkbox"]').checked = false;
+                });
+                quizData.fruits = [];
+            }
+            
+            // Update button state
+            updateFruitsButton();
+            
+            console.log('Keto toggle (fruits):', isKetoOn, 'Fruits:', quizData.fruits);
+        });
+    }
+    
+    // Handle individual fruit selection
+    fruitOptions.forEach(option => {
+        const checkbox = option.querySelector('input[type="checkbox"]');
+        const value = option.dataset.value;
+        
+        option.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Toggle selection
+            const isSelected = option.classList.toggle('selected');
+            checkbox.checked = isSelected;
+            
+            // Update selections array
+            if (isSelected) {
+                if (!quizData.fruits.includes(value)) {
+                    quizData.fruits.push(value);
+                }
+            } else {
+                quizData.fruits = quizData.fruits.filter(f => f !== value);
+            }
+            
+            console.log('Fruits selected:', quizData.fruits);
+            
+            // Update button state
+            updateFruitsButton();
+        });
+    });
+    
+    // Update button state function
+    function updateFruitsButton() {
+        if (nextBtn) {
+            if (quizData.fruits.length > 0) {
+                nextBtn.disabled = false;
+            } else {
+                nextBtn.disabled = true;
+            }
+        }
+    }
+    
+    // Next button click handler
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (quizData.fruits.length > 0) {
+                goToNextStep();
+            }
+        });
+    }
+}
+
+// Initialize Height Selection (Step 23)
+function initHeightSelection() {
+    const ftBtn = document.getElementById('ftBtn');
+    const cmBtn = document.getElementById('cmBtn');
+    const heightInput = document.getElementById('heightInput');
+    const heightLabel = document.querySelector('.height-label');
+    const nextBtn = document.getElementById('heightNextBtn');
+    
+    let currentUnit = 'ft'; // Default unit
+    
+    // Initialize height data
+    if (!quizData.height) {
+        quizData.height = {
+            value: null,
+            unit: 'ft'
+        };
+    }
+    
+    // Unit toggle handlers
+    if (ftBtn) {
+        ftBtn.addEventListener('click', () => {
+            currentUnit = 'ft';
+            ftBtn.classList.add('active');
+            cmBtn.classList.remove('active');
+            heightLabel.textContent = 'Height (ft)';
+            heightInput.placeholder = '0 ft';
+            
+            // Convert cm to ft if there's a value
+            if (heightInput.value && quizData.height.unit === 'cm') {
+                const cm = parseFloat(heightInput.value);
+                const ft = (cm / 30.48).toFixed(1);
+                heightInput.value = ft;
+            }
+            
+            quizData.height.unit = 'ft';
+            console.log('Unit changed to ft');
+        });
+    }
+    
+    if (cmBtn) {
+        cmBtn.addEventListener('click', () => {
+            currentUnit = 'cm';
+            cmBtn.classList.add('active');
+            ftBtn.classList.remove('active');
+            heightLabel.textContent = 'Height (cm)';
+            heightInput.placeholder = '0 cm';
+            
+            // Convert ft to cm if there's a value
+            if (heightInput.value && quizData.height.unit === 'ft') {
+                const ft = parseFloat(heightInput.value);
+                const cm = Math.round(ft * 30.48);
+                heightInput.value = cm;
+            }
+            
+            quizData.height.unit = 'cm';
+            console.log('Unit changed to cm');
+        });
+    }
+    
+    // Height input handler
+    if (heightInput) {
+        heightInput.addEventListener('input', (e) => {
+            const value = parseFloat(e.target.value);
+            
+            if (value && value > 0) {
+                quizData.height.value = value;
+                quizData.height.unit = currentUnit;
+                nextBtn.disabled = false;
+                console.log('Height:', quizData.height);
+            } else {
+                quizData.height.value = null;
+                nextBtn.disabled = true;
+            }
+        });
+    }
+    
+    // Next button handler
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (quizData.height.value && quizData.height.value > 0) {
+                goToNextStep();
+            }
+        });
+    }
+}
+
+// Initialize Current Weight Selection (Step 24)
+function initWeightSelection() {
+    const lbBtn = document.getElementById('lbBtn');
+    const kgBtn = document.getElementById('kgBtn');
+    const weightInput = document.getElementById('weightInput');
+    const weightLabel = document.querySelector('.weight-label');
+    const nextBtn = document.getElementById('weightNextBtn');
+    
+    let currentUnit = 'lb'; // Default unit
+    
+    // Initialize weight data
+    if (!quizData.weight) {
+        quizData.weight = {
+            value: null,
+            unit: 'lb'
+        };
+    }
+    
+    // Unit toggle handlers
+    if (lbBtn) {
+        lbBtn.addEventListener('click', () => {
+            currentUnit = 'lb';
+            lbBtn.classList.add('active');
+            kgBtn.classList.remove('active');
+            weightLabel.textContent = 'Current weight (lb)';
+            weightInput.placeholder = '0 lb';
+            
+            // Convert kg to lb if there's a value
+            if (weightInput.value && quizData.weight.unit === 'kg') {
+                const kg = parseFloat(weightInput.value);
+                const lb = (kg * 2.20462).toFixed(1);
+                weightInput.value = lb;
+            }
+            
+            quizData.weight.unit = 'lb';
+            console.log('Unit changed to lb');
+        });
+    }
+    
+    if (kgBtn) {
+        kgBtn.addEventListener('click', () => {
+            currentUnit = 'kg';
+            kgBtn.classList.add('active');
+            lbBtn.classList.remove('active');
+            weightLabel.textContent = 'Current weight (kg)';
+            weightInput.placeholder = '0 kg';
+            
+            // Convert lb to kg if there's a value
+            if (weightInput.value && quizData.weight.unit === 'lb') {
+                const lb = parseFloat(weightInput.value);
+                const kg = (lb / 2.20462).toFixed(1);
+                weightInput.value = kg;
+            }
+            
+            quizData.weight.unit = 'kg';
+            console.log('Unit changed to kg');
+        });
+    }
+    
+    // Weight input handler
+    if (weightInput) {
+        weightInput.addEventListener('input', (e) => {
+            const value = parseFloat(e.target.value);
+            
+            if (value && value > 0) {
+                quizData.weight.value = value;
+                quizData.weight.unit = currentUnit;
+                nextBtn.disabled = false;
+                console.log('Weight:', quizData.weight);
+            } else {
+                quizData.weight.value = null;
+                nextBtn.disabled = true;
+            }
+        });
+    }
+    
+    // Next button handler
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (quizData.weight.value && quizData.weight.value > 0) {
+                goToNextStep();
+            }
+        });
+    }
+}
+
+// Initialize Age Selection (Step 25)
+function initAgeSelection() {
+    const ageInput = document.getElementById('ageInput');
+    const nextBtn = document.getElementById('ageNextBtn');
+    
+    // Initialize age data
+    if (!quizData.age) {
+        quizData.age = null;
+    }
+    
+    // Age input handler
+    if (ageInput) {
+        ageInput.addEventListener('input', (e) => {
+            const value = parseInt(e.target.value);
+            
+            if (value && value >= 18 && value <= 100) {
+                quizData.age = value;
+                nextBtn.disabled = false;
+                console.log('Age:', quizData.age);
+            } else {
+                quizData.age = null;
+                nextBtn.disabled = true;
+            }
+        });
+    }
+    
+    // Next button handler
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (quizData.age && quizData.age >= 18 && quizData.age <= 100) {
+                goToNextStep();
+            }
+        });
+    }
+}
+
+// Initialize Important Events Selection (Step 26)
+function initEventsSelection() {
+    const eventOptions = document.querySelectorAll('.event-option');
+    
+    // Initialize event data
+    if (!quizData.importantEvent) {
+        quizData.importantEvent = null;
+    }
+    
+    // Handle event option clicks
+    eventOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const value = option.dataset.value;
+            
+            // Remove selected class from all options
+            eventOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to clicked option
+            option.classList.add('selected');
+            
+            // Store selection
+            quizData.importantEvent = value;
+            
+            console.log('Important event selected:', quizData.importantEvent);
+            
+            // Auto-advance to next step after a short delay
+            setTimeout(() => {
+                goToNextStep();
+            }, 300);
+        });
+    });
+}
+
+// Initialize Event Date Selection (Step 27)
+function initEventDateSelection() {
+    const eventDateInput = document.getElementById('eventDateInput');
+    const continueBtn = document.getElementById('eventDateContinueBtn');
+    const skipBtn = document.getElementById('eventDateSkipBtn');
+    
+    // Initialize event date data
+    if (!quizData.eventDate) {
+        quizData.eventDate = null;
+    }
+    
+    // Set minimum date to today
+    if (eventDateInput) {
+        const today = new Date().toISOString().split('T')[0];
+        eventDateInput.setAttribute('min', today);
+        
+        // Event date input handler
+        eventDateInput.addEventListener('input', (e) => {
+            const dateValue = e.target.value;
+            
+            if (dateValue) {
+                quizData.eventDate = dateValue;
+                continueBtn.disabled = false;
+                console.log('Event date:', quizData.eventDate);
+            } else {
+                quizData.eventDate = null;
+                continueBtn.disabled = true;
+            }
+        });
+    }
+    
+    // Continue button handler
+    if (continueBtn) {
+        continueBtn.addEventListener('click', () => {
+            if (quizData.eventDate) {
+                goToNextStep();
+            }
+        });
+    }
+    
+    // Skip button handler
+    if (skipBtn) {
+        skipBtn.addEventListener('click', () => {
+            quizData.eventDate = null;
+            goToNextStep();
+        });
+    }
 }
 
 // Validate current step
@@ -344,6 +2212,48 @@ function validateCurrentStep() {
             return quizData.targetZones && quizData.targetZones.length > 0;
         case 6:
             return quizData.bestShapeTimePeriod !== undefined;
+        case 7:
+            return quizData.ketoKnowledge !== undefined;
+        case 8:
+            return quizData.typicalDay !== undefined;
+        case 9:
+            return quizData.sleepHours !== undefined;
+        case 10:
+            return quizData.waterIntake !== undefined;
+        case 11:
+            return quizData.unhealthyHabits && quizData.unhealthyHabits.length > 0;
+        case 12:
+            return quizData.workoutFrequency !== undefined;
+        case 13:
+            return quizData.dietaryRestrictions && quizData.dietaryRestrictions.length > 0;
+        case 14:
+            return quizData.cookingPreference !== undefined;
+        case 15:
+            return quizData.mealsPerDay !== undefined;
+        case 16:
+            return quizData.dishRating !== undefined;
+        case 17:
+            return quizData.vegetables && quizData.vegetables.length > 0;
+        case 18:
+            return quizData.cereals && quizData.cereals.length > 0;
+        case 19:
+            return quizData.meat && quizData.meat.length > 0;
+        case 20:
+            return quizData.seafood && quizData.seafood.length > 0;
+        case 21:
+            return quizData.dairy && quizData.dairy.length > 0;
+        case 22:
+            return quizData.fruits && quizData.fruits.length > 0;
+        case 23:
+            return quizData.height && quizData.height.value && quizData.height.value > 0;
+        case 24:
+            return quizData.weight && quizData.weight.value && quizData.weight.value > 0;
+        case 25:
+            return quizData.age && quizData.age >= 18 && quizData.age <= 100;
+        case 26:
+            return quizData.importantEvent !== null && quizData.importantEvent !== undefined;
+        case 27:
+            return true; // Optional step - has skip button
         default:
             return true;
     }
@@ -366,6 +2276,18 @@ goToNextStep = function() {
             alert('Please select at least one target zone to continue.');
         } else if (currentStep === 6) {
             alert('Please select when you were in your best shape to continue.');
+        } else if (currentStep === 7) {
+            alert('Please select your keto knowledge level to continue.');
+        } else if (currentStep === 8) {
+            alert('Please describe your typical day to continue.');
+        } else if (currentStep === 9) {
+            alert('Please select your sleep hours to continue.');
+        } else if (currentStep === 10) {
+            alert('Please select your water intake to continue.');
+        } else if (currentStep === 11) {
+            alert('Please select at least one option to continue.');
+        } else if (currentStep === 12) {
+            alert('Please select your workout frequency to continue.');
         }
         return;
     }

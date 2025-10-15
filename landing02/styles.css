@@ -212,9 +212,9 @@ ul {
 
 /* CTA Box */
 .cta-box {
-    background: transparent;
-    border-radius: 0;
-    padding: 34px 0 40px;
+    background: #F7F1F9;
+    border-radius: 36px;
+    padding: 34px;
     margin-bottom: 32px;
     display: flex;
     gap: 40px;
@@ -497,9 +497,9 @@ ul {
 
 /* Bottom CTA */
 .bottom-cta {
-    background: transparent;
-    border-radius: 0;
-    padding: 34px 0 40px;
+    background: #FAF2E8;
+    border-radius: 36px;
+    padding: 40px;
     margin: 40px 0;
     display: flex;
     gap: 40px;
@@ -562,13 +562,11 @@ ul {
     display: flex;
     gap: 12px;
     padding: 12px 20px;
-    background: var(--color-white);
-    border-top: 1px solid var(--color-border);
     z-index: 99;
     opacity: 0;
     transform: translateY(100%);
     transition: all 0.3s;
-    max-width: 800px;
+    max-width: 700px;
     margin: auto;
 }
 
