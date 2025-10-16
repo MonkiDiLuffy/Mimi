@@ -110,6 +110,24 @@ body {
     color: var(--color-text);
 }
 
+/* Hide progress bar and step counter on gender selection page (step 1) */
+.quiz-step[data-step="1"].active ~ .progress-container,
+.quiz-step[data-step="1"].active ~ .header .step-counter {
+    display: none;
+}
+
+/* Alternative approach using body class or direct targeting */
+body.step-1 .progress-container,
+body.step-1 .step-counter {
+    display: none;
+}
+
+/* Hide progress bar and step counter for intermediate pages (.5 steps) */
+body.intermediate-page .progress-container,
+body.intermediate-page .step-counter {
+    display: none;
+}
+
 /* Page Container */
 
 /* Page Container */
@@ -1790,7 +1808,7 @@ body {
 }
 
 .workout-frequency-image img {
-    width: 100%;
+    width: 65%;
     height: auto;
     display: block;
 }
@@ -1904,175 +1922,8 @@ body {
     transform: translateY(0);
 }
 
-/* Step 13 - Dietary Restrictions Styles */
-.dietary-restrictions-selection {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-.dietary-restrictions-options {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 30px;
-}
-
-.dietary-restriction-option {
-    display: block;
-    cursor: pointer;
-    width: 100%;
-}
-
-.dietary-restriction-content {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    padding: 16px 20px;
-    background: var(--color-white);
-    border: 2px solid #E8E8E8;
-    border-radius: 16px;
-    transition: all 0.3s ease;
-}
-
-.dietary-restriction-option:hover .dietary-restriction-content {
-    border-color: var(--color-primary);
-    background: #F0F9F8;
-}
-
-.dietary-restriction-option.selected .dietary-restriction-content {
-    border-color: var(--color-primary);
-    background: #E6F7F5;
-}
-
-.checkbox-wrapper {
-    display: flex;
-    align-items: center;
-    position: relative;
-    flex-shrink: 0;
-}
-
-.dietary-restriction-checkbox {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-}
-
-.custom-checkbox {
-    width: 24px;
-    height: 24px;
-    border: 2px solid #D0D0D0;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-white);
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-}
-
-.dietary-restriction-option:hover .custom-checkbox {
-    border-color: var(--color-primary);
-}
-
-.dietary-restriction-option.selected .custom-checkbox {
-    background: var(--color-primary);
-    border-color: var(--color-primary);
-}
-
-.dietary-restriction-option.selected .custom-checkbox::after {
-    content: '✓';
-    color: var(--color-white);
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.dietary-restriction-text-container {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.dietary-restriction-title {
-    font-size: 17px;
-    font-weight: 600;
-    color: var(--color-text);
-    line-height: 1.3;
-}
-
-.dietary-restriction-description {
-    font-size: 14px;
-    font-weight: 400;
-    color: #6B6B6B;
-    line-height: 1.4;
-}
-
-.dietary-restriction-emoji {
-    font-size: 32px;
-    flex-shrink: 0;
-    line-height: 1;
-}
-
-.dietary-next-btn {
-    width: 100%;
-    padding: 16px 24px;
-    background: var(--color-primary);
-    color: var(--color-white);
-    border: none;
-    border-radius: 12px;
-    font-size: 18px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    opacity: 0.5;
-    pointer-events: none;
-}
-
-.dietary-next-btn.active {
-    opacity: 1;
-    pointer-events: all;
-}
-
-.dietary-next-btn.active:hover {
-    background: #007366;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(0, 133, 122, 0.3);
-}
-
-.dietary-next-btn.active:active {
-    transform: translateY(0);
-}
-
-/* Step 13 Mobile Styles */
-@media (max-width: 480px) {
-    .dietary-restrictions-options {
-        gap: 10px;
-    }
-    
-    .dietary-restriction-content {
-        padding: 14px 16px;
-        gap: 12px;
-    }
-    
-    .dietary-restriction-title {
-        font-size: 15px;
-    }
-    
-    .dietary-restriction-description {
-        font-size: 13px;
-    }
-    
-    .dietary-restriction-emoji {
-        font-size: 28px;
-    }
-    
-    .dietary-next-btn {
-        font-size: 16px;
-        padding: 14px 20px;
-    }
-}
+/* Step 13 - REMOVED (Duplicated with Step 16) */
+/* Step 13 CSS has been commented out as the step was removed */
 
 /* Step 14 - Cooking Preference Styles */
 .cooking-preference-selection {

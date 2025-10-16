@@ -700,8 +700,8 @@
                 </div>
             </div>
 
-            <!-- Step 13 -->
-            <div class="quiz-step" data-step="13">
+            <!-- Step 14 -->
+            <div class="quiz-step" data-step="14">
                 <div class="step-content">
                     <div class="step-header">
                         <h2 class="step-question">Do you prefer cooking, dining out, or ordering in?</h2>
@@ -741,8 +741,8 @@
                 </div>
             </div>
 
-            <!-- Step 13 -->
-            <div class="quiz-step" data-step="14">
+            <!-- Step 15 -->
+            <div class="quiz-step" data-step="15">
                 <div class="step-content">
                     <div class="step-header">
                         <h2 class="step-question">How many meals a day would you like to have?</h2>
@@ -790,8 +790,8 @@
                 </div>
             </div>
 
-            <!-- Step 13 -->
-            <div class="quiz-step" data-step="15">
+            <!-- Step 16 -->
+            <div class="quiz-step" data-step="16">
                 <div class="step-content">
                     <div class="step-header">
                         <h2 class="step-question">Like or Dislike Keto Dish</h2>
@@ -826,7 +826,7 @@
             </div>
 
             <!-- Intermediate Page - Health Coaches (between Step 16 and 17) -->
-            <div class="quiz-step intermediate-page" data-step="15.5">
+            <div class="quiz-step intermediate-page" data-step="16.5">
                 <div class="step-content">
                     <div class="health-coaches-page">
                         <h2 class="health-coaches-title">Our health & wellness coaches about the Keto Meal Plan</h2>
@@ -882,8 +882,8 @@
                 </div>
             </div>
 
-            <!-- Step 13 -->
-            <div class="quiz-step" data-step="16">
+            <!-- Step 17 -->
+            <div class="quiz-step" data-step="17">
                 <div class="step-content">
                     <div class="step-header">
                         <h2 class="step-question">Choose the vegetables you'd like to see in your meal plan</h2>
@@ -1017,8 +1017,8 @@
                 </div>
             </div>
 
-            <!-- Step 13 -->
-            <div class="quiz-step" data-step="17">
+            <!-- Step 18 -->
+            <div class="quiz-step" data-step="18">
                 <div class="step-content">
                     <div class="step-header">
                         <h2 class="step-question">Choose the cereals you'd like to see in your meal plan</h2>
@@ -1108,8 +1108,8 @@
                 </div>
             </div>
 
-            <!-- Step 13 -->
-            <div class="quiz-step" data-step="18">
+            <!-- Step 19 -->
+            <div class="quiz-step" data-step="19">
                 <div class="step-content">
                     <div class="step-header">
                         <h2 class="step-question">Choose the meat and fish you'd like to see in your meal plan</h2>
@@ -1210,8 +1210,8 @@
                 </div>
             </div>
 
-            <!-- Step 13 -->
-            <div class="quiz-step" data-step="19">
+            <!-- Step 20 -->
+            <div class="quiz-step" data-step="20">
                 <div class="step-content">
                     <div class="step-header">
                         <h2 class="step-question">Mark the fish and seafood you would like to include:</h2>
@@ -1301,8 +1301,8 @@
                 </div>
             </div>
 
-            <!-- Step 13 -->
-            <div class="quiz-step" data-step="20">
+            <!-- Step 21 -->
+            <div class="quiz-step" data-step="21">
                 <div class="step-content">
                     <div class="step-header">
                         <h2 class="step-question">Mark the dairy products you would like to include:</h2>
@@ -1415,7 +1415,7 @@
             </div>
 
             <!-- Intermediate Page: Keto Celebrities (21.5) -->
-            <div class="quiz-step intermediate-page" data-step="20.5" style="display: none;">
+            <div class="quiz-step intermediate-page" data-step="21.5" style="display: none;">
                 <div class="keto-celebs-content">
                     <h1 class="keto-celebs-title">The Revolutionary Meal Plan: celebs in love with Keto</h1>
                     
@@ -1450,8 +1450,8 @@
                 </div>
             </div>
 
-            <!-- Step 13: Fruits/Berries -->
-            <div class="quiz-step" data-step="21" style="display: none;">
+            <!-- Step 22: Fruits/Berries -->
+            <div class="quiz-step" data-step="22" style="display: none;">
                 <div class="fruits-selection">
                     <div class="selection-header">
                         <h2>Select the fruits and berries you are ready to add to your diet</h2>
@@ -1542,8 +1542,8 @@
                 </div>
             </div>
 
-            <!-- Step 13: Height -->
-            <div class="quiz-step" data-step="22" style="display: none;">
+            <!-- Step 23: Height -->
+            <div class="quiz-step" data-step="23" style="display: none;">
                 <div class="height-selection">
                     <h2>What is your height?</h2>
                     
@@ -1576,8 +1576,8 @@
                 </div>
             </div>
 
-            <!-- Step 13: Current Weight -->
-            <div class="quiz-step" data-step="23" style="display: none;">
+            <!-- Step 24: Current Weight -->
+            <div class="quiz-step" data-step="24" style="display: none;">
                 <div class="weight-selection">
                     <h2>What is your current weight?</h2>
                     
@@ -1602,8 +1602,8 @@
                 </div>
             </div>
 
-            <!-- Step 13: Age -->
-            <div class="quiz-step" data-step="24" style="display: none;">
+            <!-- Step 25: Age -->
+            <div class="quiz-step" data-step="25" style="display: none;">
                 <div class="age-selection">
                     <h2>What is your age?</h2>
                     
@@ -1632,8 +1632,8 @@
                 </div>
             </div>
 
-            <!-- Step 13: Important Events -->
-            <div class="quiz-step" data-step="25" style="display: none;">
+            <!-- Step 26: Important Events -->
+            <div class="quiz-step" data-step="26" style="display: none;">
                 <div class="events-selection">
                     <h2>Do you have any important event coming up?</h2>
                     <p class="events-subtitle">Having something to look forward to can be a great motivator for reaching your goal</p>
@@ -1682,8 +1682,8 @@
                 </div>
             </div>
 
-            <!-- Step 13: Event Date -->
-            <div class="quiz-step" data-step="26" style="display: none;">
+            <!-- Step 27: Event Date -->
+            <div class="quiz-step" data-step="27" style="display: none;">
                 <div class="event-date-selection">
                     <h2>When is your event?</h2>
                     <p class="event-date-subtitle">We will keep this important event in mind for your journey</p>
@@ -1707,8 +1707,8 @@
                 </div>
             </div>
 
-            <!-- Step 13: Weight Loss Chart -->
-            <div class="quiz-step" data-step="27" style="display: none;">
+            <!-- Step 28: Weight Loss Chart -->
+            <div class="quiz-step" data-step="28" style="display: none;">
                 <div class="chart-selection">
                     <h2>The last plan you'll ever need to finally get in shape</h2>
                     <p class="chart-subtitle" id="chartSubtitle">Based on our calculations, you'll hit your goal weight by</p>
@@ -1722,8 +1722,8 @@
                 </div>
             </div>
 
-            <!-- Step 13.5: Progress Circle (Intermediate Page) -->
-            <div class="quiz-step intermediate-page" data-step="27.5" style="display: none;">
+            <!-- Step 28.5: Progress Circle (Intermediate Page) -->
+            <div class="quiz-step intermediate-page" data-step="28.5" style="display: none;">
                 <div class="progress-circle-container">
                     <div class="progress-circle-wrapper">
                         <svg class="progress-ring" width="200" height="200">
@@ -1790,8 +1790,8 @@
                 </div>
             </div>
 
-            <!-- Step 13: Email Collection (Final Step) -->
-            <div class="quiz-step" data-step="28" style="display: none;">
+            <!-- Step 29: Email Collection (Final Step) -->
+            <div class="quiz-step" data-step="29" style="display: none;">
                 <div class="email-selection">
                     <h2>Enter your email to get your personalized Keto Program</h2>
                     

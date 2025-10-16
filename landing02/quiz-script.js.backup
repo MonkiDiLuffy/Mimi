@@ -1,6 +1,6 @@
 // Quiz state
 let currentStep = 1;
-const totalSteps = 28;
+const totalSteps = 29;
 const quizData = {};
 let selectedGender = null; // Track selected gender for dynamic image updates
 
@@ -195,7 +195,7 @@ function init() {
 // Update UI based on current step
 function updateUI() {
     // Check if we're on an intermediate page (step 6.5, 12.5, 16.5, 21.5, or 28.5)
-    const isIntermediatePage = (currentStep === 6.5 || currentStep === 12.5 || currentStep === 15.5 || currentStep === 20.5 || currentStep === 27.5);
+    const isIntermediatePage = (currentStep === 6.5 || currentStep === 12.5 || currentStep === 16.5 || currentStep === 21.5 || currentStep === 28.5);
     
     // Add/remove body class for step 1 to hide progress bar and step counter
     if (currentStep === 1) {
@@ -280,13 +280,13 @@ function goToNextStep() {
     }
     
     // Special handling: After step 16, show intermediate page (16.5) before step 17
-    if (currentStep === 15) {
+    if (currentStep === 16) {
         showHealthCoachesPage();
         return;
     }
     
     // Special handling: After step 21, show Keto Celebrities page (21.5) before step 22
-    if (currentStep === 20) {
+    if (currentStep === 21) {
         showKetoCelebsPage();
         return;
     }
@@ -318,21 +318,21 @@ function goToPreviousStep() {
         return;
     }
     
-    if (currentStep === 15.5) {
+    if (currentStep === 16.5) {
         // From health coaches page, go back to step 16
         currentStep = 16;
         updateUI();
         return;
     }
     
-    if (currentStep === 20.5) {
+    if (currentStep === 21.5) {
         // From Keto Celebrities page, go back to step 21
         currentStep = 21;
         updateUI();
         return;
     }
     
-    if (currentStep === 27.5) {
+    if (currentStep === 28.5) {
         // From progress circle page, go back to step 28
         currentStep = 28;
         updateUI();
@@ -354,23 +354,23 @@ function goToPreviousStep() {
         return;
     }
     
-    if (currentStep === 16) {
+    if (currentStep === 17) {
         // From step 17, go back to health coaches page 16.5
-        currentStep = 15.5;
+        currentStep = 16.5;
         updateUI();
         return;
     }
     
-    if (currentStep === 21) {
+    if (currentStep === 22) {
         // From step 22, go back to Keto Celebrities page 21.5
-        currentStep = 20.5;
+        currentStep = 21.5;
         updateUI();
         return;
     }
     
-    if (currentStep === 28) {
+    if (currentStep === 29) {
         // From email collection (step 29), go back to progress circle page 28.5
-        currentStep = 27.5;
+        currentStep = 28.5;
         updateUI();
         return;
     }
@@ -437,7 +437,7 @@ function continueFromWorkoutMotivationPage() {
 // Show health coaches intermediate page
 function showHealthCoachesPage() {
     // Set current step to intermediate page
-    currentStep = 15.5;
+    currentStep = 16.5;
     
     // Update UI to show the intermediate page
     updateUI();
@@ -463,7 +463,7 @@ function continueFromHealthCoachesPage() {
 // Show Keto Celebrities intermediate page
 function showKetoCelebsPage() {
     // Set current step to intermediate page
-    currentStep = 20.5;
+    currentStep = 21.5;
     
     // Update UI to show the intermediate page
     updateUI();
@@ -2530,39 +2530,39 @@ function validateCurrentStep() {
             return quizData.workoutFrequency !== undefined;
         case 13:
             return true; // Step 13 removed - always pass validation
-        case 13:
-            return quizData.cookingPreference !== undefined;
         case 14:
-            return quizData.mealsPerDay !== undefined;
+            return quizData.cookingPreference !== undefined;
         case 15:
-            return quizData.dishRating !== undefined;
+            return quizData.mealsPerDay !== undefined;
         case 16:
-            return quizData.vegetables && quizData.vegetables.length > 0;
+            return quizData.dishRating !== undefined;
         case 17:
-            return quizData.cereals && quizData.cereals.length > 0;
+            return quizData.vegetables && quizData.vegetables.length > 0;
         case 18:
-            return quizData.meat && quizData.meat.length > 0;
+            return quizData.cereals && quizData.cereals.length > 0;
         case 19:
-            return quizData.seafood && quizData.seafood.length > 0;
+            return quizData.meat && quizData.meat.length > 0;
         case 20:
-            return quizData.dairy && quizData.dairy.length > 0;
+            return quizData.seafood && quizData.seafood.length > 0;
         case 21:
-            return quizData.fruits && quizData.fruits.length > 0;
+            return quizData.dairy && quizData.dairy.length > 0;
         case 22:
-            return quizData.height && quizData.height.value && quizData.height.value > 0;
+            return quizData.fruits && quizData.fruits.length > 0;
         case 23:
-            return quizData.weight && quizData.weight.value && quizData.weight.value > 0;
+            return quizData.height && quizData.height.value && quizData.height.value > 0;
         case 24:
-            return quizData.age && quizData.age >= 18 && quizData.age <= 100;
+            return quizData.weight && quizData.weight.value && quizData.weight.value > 0;
         case 25:
-            return quizData.importantEvent !== null && quizData.importantEvent !== undefined;
+            return quizData.age && quizData.age >= 18 && quizData.age <= 100;
         case 26:
-            return true; // Optional step - has skip button
+            return quizData.importantEvent !== null && quizData.importantEvent !== undefined;
         case 27:
+            return true; // Optional step - has skip button
+        case 28:
             return true; // Chart display step - always valid
         case 28.5:
             return true; // Progress circle - intermediate page, always valid
-        case 28:
+        case 29:
             return quizData.email && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(quizData.email);
         default:
             return true;
